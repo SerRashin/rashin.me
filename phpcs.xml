@@ -122,5 +122,5 @@
     <rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
     <rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
     <file>src</file>
-    <file>test</file>
+    <file>tests</file>
 </ruleset>
