@@ -1,4 +1,5 @@
 test-bloc.loc
 =============
 
-A Symfony project created on August 10, 2017, 8:59 pm.
+[![Build Status](https://travis-ci.org/SerRashin/rashin.me.svg?branch=master)](https://travis-ci.org/SerRashin/rashin.me)
+[![Coverage Status](https://coveralls.io/repos/github/SerRashin/rashin.me/badge.svg?branch=master)](https://coveralls.io/github/SerRashin/rashin.me?branch=master)

@@ -22,6 +22,8 @@ services:
     depends_on:
       - db
     command: sh -c "chmod +x ./docker/init.sh && ./docker/init.sh"
+    env_file:
+      - docker/.env
   db:
     image: sameersbn/postgresql
     volumes:
@@ -30,5 +32,3 @@ services:
       - DB_USER=dev
       - DB_PASS=dev
       - DB_NAME=blog
-networks:
-  default:

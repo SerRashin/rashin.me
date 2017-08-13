@@ -1,9 +1,6 @@
 #!/bin/sh
 # init.sh
 
-chmod 777 /var/www/docker/.env
-cat /var/www/docker/.env >> /root/.bashrc
-
 cd /var/www/
 
 composer install --prefer-source --no-interaction
