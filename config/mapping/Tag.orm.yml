@@ -1,0 +1,14 @@
+RashinMe\Entity\Tag:
+  type: entity
+  table: tags
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+      options:
+        unsigned: true
+  fields:
+    name:
+      type: string
+      length: 75

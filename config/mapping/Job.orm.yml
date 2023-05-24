@@ -1,0 +1,27 @@
+RashinMe\Entity\Job:
+  type: entity
+  table: jobs
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+      options:
+        unsigned: true
+  fields:
+    name:
+      type: string
+      length: 175
+    type:
+      type: string
+      length: 30
+    description:
+      type: text
+    fromDate:
+      type: datetime
+    toDate:
+      type: datetime
+      nullable: true
+  embedded:
+    company:
+      class: RashinMe\Entity\Company

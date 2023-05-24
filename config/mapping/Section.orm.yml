@@ -1,0 +1,23 @@
+RashinMe\Entity\Section:
+  type: entity
+  table: sections
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+      options:
+        unsigned: true
+  fields:
+    name:
+      type: string
+      length: 175
+  oneToMany:
+    skills:
+      targetEntity: RashinMe\Entity\Skill
+      mappedBy: section
+      orderBy: { "id": "ASC" }
+      cascade:
+        - persist
+        - remove
+      orphanRemoval: true

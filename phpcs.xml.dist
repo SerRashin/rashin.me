@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+    <arg name="basepath" value="."/>
+    <arg name="cache" value=".phpcs-cache"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+
+    <rule ref="PSR12"/>
+
+    <rule ref="Squiz.Commenting.ClassComment.Missing">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionComment.Missing">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionComment.IncorrectTypeHint">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.VariableComment.Missing">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.VariableComment.MissingVar">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.BlockComment.SingleLine">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.BlockComment.WrongStart">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Commenting.InlineComment.DocBlock">
+        <severity>0</severity>
+    </rule>
+
+    <rule ref="Generic.Commenting.DocComment.MissingShort">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.Commenting.DocComment.ContentAfterOpen">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.Commenting.DocComment.ContentBeforeClose">
+        <severity>0</severity>
+    </rule>
+
+    <file>public/</file>
+    <file>src/</file>
+    <file>tests/</file>
+
+</ruleset>

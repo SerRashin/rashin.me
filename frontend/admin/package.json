@@ -1,0 +1,44 @@
+{
+    "name": "rashinme-frontend-admin",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@mui/icons-material": "^5.11.16",
+        "@mui/material": "^5.13.1",
+        "axios": "^1.4.0",
+        "prop-types": "^15.8.1",
+        "query-string": "^8.1.0",
+        "ra-data-simple-rest": "^4.10.3",
+        "ra-input-rich-text": "^4.10.3",
+        "react": "^18.2.0",
+        "react-admin": "^4.10.3",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.11.2",
+        "web-vitals": "^3.3.1"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^14.0.0",
+        "@testing-library/user-event": "^14.4.3",
+        "@types/react": "^18.2.6",
+        "@types/react-dom": "^18.2.4",
+        "@types/react-router-dom": "^5.3.3",
+        "@vitejs/plugin-react": "^4.0.0",
+        "eslint": "^8.41.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-jsx-a11y": "^6.7.1",
+        "eslint-plugin-react": "^7.32.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "react-error-overlay": "^6.0.11",
+        "source-map-explorer": "^2.5.3",
+        "typescript": "^5.0.4",
+        "vite": "^4.3.8"
+    },
+    "scripts": {
+        "analyze": "source-map-explorer 'build/static/js/*.js'",
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    }
+}

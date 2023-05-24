@@ -1,0 +1,27 @@
+RashinMe\Entity\Link:
+  type: entity
+  table: links
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+      options:
+        unsigned: true
+  fields:
+    title:
+      type: string
+      length: 175
+    url:
+      type: string
+      length: 175
+  manyToOne:
+    project:
+      targetEntity: RashinMe\Entity\Project
+      inversedBy: links
+      joinColumn:
+        name: project_id
+        referencedColumnName: id
+        nullable: false
+        cascade: [remove]
+        onDelete: CASCADE

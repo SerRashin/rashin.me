@@ -1,0 +1,5 @@
+RashinMe\Entity\Company:
+  type: embeddable
+  fields:
+    name: { type: string }
+    url: { type: string }

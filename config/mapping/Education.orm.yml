@@ -1,0 +1,25 @@
+RashinMe\Entity\Education:
+  type: entity
+  table: educations
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+      options:
+        unsigned: true
+  fields:
+    institution:
+      type: string
+      length: 175
+    faculty:
+      type: string
+      length: 175
+    specialization:
+      type: string
+      length: 175
+    fromDate:
+      type: datetime
+    toDate:
+      type: datetime
+      nullable: true

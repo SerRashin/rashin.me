@@ -1,0 +1,26 @@
+RashinMe\Entity\User:
+  type: entity
+  table: users
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+      options:
+        unsigned: true
+  fields:
+    firstName:
+      type: string
+      length: 75
+    lastName:
+      type: string
+      length: 75
+    email:
+      type: string
+      length: 175
+      unique: true
+    password:
+      type: string
+      length: 175
+    roles:
+      type: json

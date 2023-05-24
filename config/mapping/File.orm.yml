@@ -1,0 +1,25 @@
+RashinMe\Entity\File:
+  type: entity
+  table: files
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+      options:
+        unsigned: true
+  fields:
+    name:
+      type: string
+      length: 200
+    path:
+      type: string
+      length: 200
+    mimeType:
+      type: string
+      length: 25
+    size:
+      type: integer
+      options:
+        default: 0
+        unsigned: true

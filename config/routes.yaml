@@ -1,0 +1,183 @@
+hello_controller:
+  path: /api/test
+  methods: GET
+  controller: RashinMe\Controller\HelloController
+
+# Configuration
+update_configurations:
+  path: /api/properties
+  methods: PATCH
+  controller: RashinMe\Controller\Property\UpdateController
+get_configurations:
+  path: /api/properties
+  methods: GET
+  controller: RashinMe\Controller\Property\ListController
+get_configuration:
+  path: /api/properties/{name}
+  methods: GET
+  controller: RashinMe\Controller\Property\ViewController
+
+resume:
+  path: /resume
+  methods: GET
+  controller: RashinMe\Controller\Resume\GenerateController
+
+# Auth routes
+auth_login:
+  path: /api/login
+  methods: POST
+  controller: RashinMe\Controller\Auth\LoginController
+auth_logout:
+  path: /api/logout
+  methods: GET
+  controller: RashinMe\Controller\Auth\LogoutController
+
+# User routes
+user_registration:
+  path: /api/users
+  methods: POST
+  controller: RashinMe\Controller\User\RegistrationController
+update_user:
+  path: /api/users/{id}
+  methods: PATCH
+  controller: RashinMe\Controller\User\UpdateController
+delete_user:
+  path: /api/users/{id}
+  methods: DELETE
+  controller: RashinMe\Controller\User\DeleteController
+view_user:
+  path: /api/users/{id}
+  methods: GET
+  controller: RashinMe\Controller\User\ViewController
+current_user:
+  path: /api/user
+  methods: GET
+  controller: RashinMe\Controller\User\ViewController
+users_list:
+  path: /api/users
+  methods: GET
+  controller: RashinMe\Controller\User\ListController
+
+# Projects routes
+projects_list:
+  path: /api/projects
+  methods: GET
+  controller: RashinMe\Controller\Project\ListController
+create_project:
+  path: /api/projects
+  methods: POST
+  controller: RashinMe\Controller\Project\CreateController
+view_project:
+  path: /api/projects/{id}
+  methods: GET
+  controller: RashinMe\Controller\Project\ViewController
+update_project:
+  path: /api/projects/{id}
+  methods: PATCH
+  controller: RashinMe\Controller\Project\UpdateController
+delete_project:
+  path: /api/projects/{id}
+  methods: DELETE
+  controller: RashinMe\Controller\Project\DeleteController
+
+# Job routes
+job_list:
+  path: /api/jobs
+  methods: GET
+  controller: RashinMe\Controller\Job\ListController
+create_job:
+  path: /api/jobs
+  methods: POST
+  controller: RashinMe\Controller\Job\CreateController
+view_job:
+  path: /api/jobs/{id}
+  methods: GET
+  controller: RashinMe\Controller\Job\ViewController
+update_job:
+  path: /api/jobs/{id}
+  methods: PATCH
+  controller: RashinMe\Controller\Job\UpdateController
+delete_job:
+  path: /api/jobs/{id}
+  methods: DELETE
+  controller: RashinMe\Controller\Job\DeleteController
+
+# Education routes
+education_list:
+  path: /api/educations
+  methods: GET
+  controller: RashinMe\Controller\Education\ListController
+create_education:
+  path: /api/educations
+  methods: POST
+  controller: RashinMe\Controller\Education\CreateController
+view_education:
+  path: /api/educations/{id}
+  methods: GET
+  controller: RashinMe\Controller\Education\ViewController
+update_education:
+  path: /api/educations/{id}
+  methods: PATCH
+  controller: RashinMe\Controller\Education\UpdateController
+delete_education:
+  path: /api/educations/{id}
+  methods: DELETE
+  controller: RashinMe\Controller\Education\DeleteController
+
+# skill routes
+skills_list:
+  path: /api/skills
+  methods: GET
+  controller: RashinMe\Controller\Skill\ListController
+create_skill:
+  path: /api/skills
+  methods: POST
+  controller: RashinMe\Controller\Skill\CreateController
+view_skill:
+  path: /api/skills/{id}
+  methods: GET
+  controller: RashinMe\Controller\Skill\ViewController
+update_skill:
+  path: /api/skills/{id}
+  methods: PATCH
+  controller: RashinMe\Controller\Skill\UpdateController
+delete_skill:
+  path: /api/skills/{id}
+  methods: DELETE
+  controller: RashinMe\Controller\Skill\DeleteController
+
+# skills sections
+sections_list:
+  path: /api/sections
+  methods: GET
+  controller: RashinMe\Controller\Skill\Section\ListController
+create_section:
+  path: /api/sections
+  methods: POST
+  controller: RashinMe\Controller\Skill\Section\CreateController
+view_section:
+  path: /api/sections/{id}
+  methods: GET
+  controller: RashinMe\Controller\Skill\Section\ViewController
+update_section:
+  path: /api/sections/{id}
+  methods: PATCH
+  controller: RashinMe\Controller\Skill\Section\UpdateController
+delete_section:
+  path: /api/sections/{id}
+  methods: DELETE
+  controller: RashinMe\Controller\Skill\Section\DeleteController
+
+# Storage routes
+upload_to_storage:
+  path: /api/storage
+  methods: POST
+  controller: RashinMe\Controller\Storage\UploadController
+storage_view:
+  path: /api/storage/{id}
+  methods: GET
+  controller: RashinMe\Controller\Storage\ViewController
+#storage_list:
+#  path: /api/storage
+#  methods: GET
+#  controller: RashinMe\Controller\Storage\UploadController

@@ -1,0 +1,82 @@
+version: '3.4'
+
+services:
+  frontend-public:
+    build:
+      context: ./frontend/public
+      target: dev
+    env_file:
+      - .env
+      - ./frontend/public/.env
+    volumes:
+      - ./frontend/public:/app
+    ports:
+      - ${FRONTEND_PUBLIC_PORT:-3121}:${FRONTEND_PUBLIC_PORT:-3121} # vite websocket debug port
+    networks:
+      - appnet
+    depends_on:
+      - backend
+  frontend-admin:
+    build:
+      context: ./frontend/admin
+      target: dev
+    working_dir: /app
+    env_file:
+      - .env
+      - ./frontend/admin/.env
+    volumes:
+      - ./frontend/admin:/app
+    ports:
+      - ${FRONTEND_ADMIN_PORT:-3122}:${FRONTEND_ADMIN_PORT:-3122} # vite websocket debug port
+    networks:
+      - appnet
+    depends_on:
+      - backend
+  nginx:
+    image: nginx:1.21
+    env_file:
+      - .env
+    volumes:
+      - ./frontend/docker/nginx.dev.conf:/etc/nginx/templates/rashinme.conf.template:ro
+      - ./:/app
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - appnet
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: ./
+      target: dev
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
+    links:
+      - db
+    networks:
+      - appnet
+    depends_on:
+      - db
+  db:
+    image: postgres:${DB_SERVER_VERSION:-15}-alpine
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-!PasswordByDefault!}
+      - POSTGRES_USER=${DB_USER:-app}
+      - POSTGRES_DB=${DB_NAME:-db_name}
+    ports:
+      - ${DB_PUBLIC_PORT:-5432}:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge
+
+volumes:
+  pgdata:
+

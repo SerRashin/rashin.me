@@ -1,0 +1,13 @@
+RashinMe\Entity\Property:
+  type: entity
+  table: properties
+  id:
+    key:
+      type: string
+      length: 200
+      generator:
+        strategy: NONE
+  fields:
+    value:
+      type: string
+      length: 200

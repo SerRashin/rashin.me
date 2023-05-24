@@ -1,0 +1,6 @@
+twig:
+  paths:
+    '%kernel.project_dir%/src/Resources/Templates': ~
+when@test:
+    twig:
+        strict_variables: true

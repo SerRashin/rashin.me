@@ -1,0 +1,31 @@
+RashinMe\Entity\Skill:
+  type: entity
+  table: skills
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+      options:
+        unsigned: true
+  fields:
+    name:
+      type: string
+      length: 175
+    description:
+      type: text
+  oneToOne:
+    image:
+      targetEntity: RashinMe\Entity\File
+      joinColumn:
+        name: image_id
+        referencedColumnName: id
+  manyToOne:
+    section:
+      targetEntity: RashinMe\Entity\Section
+      joinColumn:
+        name: section_id
+        referencedColumnName: id
+        nullable: false
+        cascade: ["persist", "merge"]
+        onDelete: CASCADE
