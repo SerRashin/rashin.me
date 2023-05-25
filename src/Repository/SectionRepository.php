@@ -60,7 +60,31 @@ class SectionRepository implements SectionRepositoryInterface
         $query->leftJoin('section.skills', 'skills')
             ->addSelect('skills');
 
-        if ($filter->limit !== null) {
+        $ids = $this->getSectionIds($filter);
+
+        /** @var array<int, Section> $skills */
+        $skills = $query
+            ->addOrderBy('section.id', 'ASC')
+            ->where('section.id IN(:sectionIds)')
+            ->setParameter('sectionIds', array_values($ids))
+            ->getQuery()
+            ->getResult();
+
+        return new ArrayCollection($skills);
+    }
+
+    /**
+     * @param SectionFilter $filter
+     *
+     * @return int[]
+     */
+    private function getSectionIds(SectionFilter $filter): array
+    {
+        $query = $this->createQueryBuilder()
+            ->addSelect('DISTINCT s.id')
+            ->from(Section::class, 's');
+
+        if ($filter->limit !== 0) {
             $query->setMaxResults($filter->limit);
         }
 
@@ -68,14 +92,13 @@ class SectionRepository implements SectionRepositoryInterface
             $query->setFirstResult($filter->offset);
         }
 
-        $query->addOrderBy('section.id', 'ASC');
-
-        /** @var array<int, Section> $skills */
-        $skills = $query
+        /** @var array<int> $ids */
+        $ids = $query
+            ->addOrderBy('s.id', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
 
-        return new ArrayCollection($skills);
+        return $ids;
     }
 
     /**
