@@ -20,7 +20,7 @@ class SkillData
     #[Assert\NotBlank]
     public int $imageId;
 
-    #[Assert\Length(min: 1)]
-    #[Assert\NotBlank]
+//    #[Assert\Length(min: 1)]
+//    #[Assert\NotBlank]
     public string $description;
 }
