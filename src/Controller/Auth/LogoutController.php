@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RashinMe\Controller\Auth;
 
+use Exception;
 use RashinMe\Service\Response\ResponseFactoryInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,11 @@ final class LogoutController
 
     public function __invoke(Request $request): Response
     {
-        $this->security->logout(false);
+        try {
+            $this->security->logout(false);
+        } catch (Exception $e) {
+            return $this->responseFactory->badRequest('Unable to logout as there is no logged-in user.');
+        }
 
         return $this->responseFactory->createResponse();
     }

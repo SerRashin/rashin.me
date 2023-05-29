@@ -11,6 +11,7 @@ use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Response\ResponseFactoryInterface;
 use RashinMe\View\PropertiesView;
 use RashinMe\View\ErrorView;
+use Ser\DtoRequestBundle\Attributes\Dto;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -23,7 +24,7 @@ class UpdateController
     ) {
     }
 
-    public function __invoke(PropertiesData $propertiesData): Response
+    public function __invoke(#[Dto] PropertiesData $propertiesData): Response
     {
         if (!$this->security->isGranted(Permissions::ADMIN)) {
             return $this->responseFactory->forbidden("You're not allowed to update configuration");

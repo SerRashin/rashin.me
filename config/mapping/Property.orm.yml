@@ -9,5 +9,4 @@ RashinMe\Entity\Property:
         strategy: NONE
   fields:
     value:
-      type: string
-      length: 200
+      type: text

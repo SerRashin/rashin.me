@@ -78,8 +78,6 @@ class EducationServiceTest extends TestCase
 
     public function testEducationSaving(): void
     {
-        $this->testData->to = new DateData(1, 2010);
-
         $this->validationService
             ->expects($this->once())
             ->method('validate')
@@ -141,8 +139,6 @@ class EducationServiceTest extends TestCase
             new DateTime('now'),
             new DateTime('now'),
         );
-
-        $this->testData->to = new DateData(1, 2010);
 
         $this->validationService
             ->expects($this->once())

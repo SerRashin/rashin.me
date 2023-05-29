@@ -23,6 +23,13 @@ doctrine:
 
 when@test:
     doctrine:
+#        dbal:
+#            driver: pdo_sqlite
+#            path: '%kernel.cache_dir%/test.db'
+#            charset: UTF8
+#        orm:
+#            auto_generate_proxy_classes: true
+#            auto_mapping: true
         dbal:
             # "TEST_TOKEN" is typically set by ParaTest
 #            dbname_suffix: '_test%env(default::TEST_TOKEN)%'

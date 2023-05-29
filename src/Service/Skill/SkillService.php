@@ -39,16 +39,16 @@ class SkillService
             return $validationError;
         }
 
-        $file = $this->storageService->getFileById($skillData->imageId);
+        $file = $this->storageService->getFileById($skillData->imageId ?? 0);
 
         if ($file === null) {
-            return new Error("Image id not found");
+            return new Error('Validation Error', ['image' => 'Image id not found']);
         }
 
-        $section = $this->sectionService->getSectionById($skillData->sectionId);
+        $section = $this->sectionService->getSectionById($skillData->sectionId ?? 0);
 
         if ($section === null) {
-            return new Error("Section id not found");
+            return new Error('Validation Error', ['section' => 'Section id not found']);
         }
 
         $skill = new Skill(

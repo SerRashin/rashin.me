@@ -105,7 +105,7 @@ class GenerateService
             'about' => $about,
         ]);
 
-        $dompdf->loadHtml($html);
+        $dompdf->loadHtml($html, 'UTF-8');
 
         $dompdf->setPaper('A4');
 

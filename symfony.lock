@@ -41,7 +41,7 @@
         ]
     },
     "ser/dto-request-bundle": {
-        "version": "dev-master"
+        "version": "0.1.1"
     },
     "squizlabs/php_codesniffer": {
         "version": "3.7",

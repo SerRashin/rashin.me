@@ -8,7 +8,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class SectionData
 {
-    #[Assert\Length(min: 3)]
-    #[Assert\NotBlank]
-    public string $name;
+    public function __construct(
+        #[Assert\Length(min: 3)]
+        #[Assert\NotBlank]
+        public string $name,
+    ) {
+    }
 }

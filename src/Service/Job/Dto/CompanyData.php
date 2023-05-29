@@ -8,24 +8,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyData
 {
-    #[Assert\Length(min: 5)]
-    #[Assert\NotBlank]
-    public string $name;
-
-    #[Assert\Url(
-        protocols: [
-            'http',
-            'https'
-        ],
-    )]
-    #[Assert\NotBlank]
-    public string $url;
-
     public function __construct(
-        string $name,
-        string $url,
+        #[Assert\Length(min: 5)]
+        #[Assert\NotBlank]
+        public readonly string $name,
+        #[Assert\Url(
+            protocols: [
+                'http',
+                'https'
+            ],
+        )]
+        #[Assert\NotBlank]
+        public readonly string $url,
     ) {
-        $this->name = $name;
-        $this->url = $url;
     }
 }
