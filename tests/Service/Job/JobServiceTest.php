@@ -54,14 +54,14 @@ class JobServiceTest extends TestCase
         );
 
         $this->testData = new JobData(
-            name: 'name',
-            description: 'description',
-            type:'type of work',
-            company: new CompanyData(
+            'name',
+            new CompanyData(
                 'company.name',
-                'company.url'
+                'company.url',
             ),
-            from: new DateData(1, 2010),
+            'description',
+            'type of work',
+            new DateData(1, 2010),
         );
     }
 
@@ -83,7 +83,17 @@ class JobServiceTest extends TestCase
 
     public function testJobSaving(): void
     {
-        $this->testData->to = new DateData(1, 2010);
+        $this->testData = new JobData(
+            'name',
+            new CompanyData(
+                'company.name',
+                'company.url',
+            ),
+            'description',
+            'type of work',
+            new DateData(1, 2010),
+            new DateData(1, 2011),
+        );
 
         $this->validationService
             ->expects($this->once())
@@ -151,7 +161,17 @@ class JobServiceTest extends TestCase
             new DateTime('now'),
         );
 
-        $this->testData->to = new DateData(1, 2010);
+        $this->testData = new JobData(
+            'name',
+            new CompanyData(
+                'company.name',
+                'company.url',
+            ),
+            'description',
+            'type of work',
+            new DateData(1, 2010),
+            new DateData(1, 2011),
+        );
 
         $this->validationService
             ->expects($this->once())

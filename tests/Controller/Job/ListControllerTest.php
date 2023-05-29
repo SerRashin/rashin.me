@@ -8,5 +8,10 @@ use RashinMe\FunctionalTestCase;
 
 class ListControllerTest extends FunctionalTestCase
 {
+    private const API_URL = '/api/jobs';
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
 }

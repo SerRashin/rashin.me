@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9349eee1f8a88f56ee9e61a7769b30c",
+    "content-hash": "f80ce01fc1b8c778cff34d1ea69b9ca0",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -1792,21 +1792,22 @@
         },
         {
             "name": "ser/dto-request-bundle",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SerRashin/dto-request-bundle.git",
-                "reference": "ded02e67b2a3fbe26539d73521c548a4c3a73637"
+                "reference": "8de581cdd30aa666b8c23ad9644d7aa8660ed904"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SerRashin/dto-request-bundle/zipball/ded02e67b2a3fbe26539d73521c548a4c3a73637",
-                "reference": "ded02e67b2a3fbe26539d73521c548a4c3a73637",
+                "url": "https://api.github.com/repos/SerRashin/dto-request-bundle/zipball/8de581cdd30aa666b8c23ad9644d7aa8660ed904",
+                "reference": "8de581cdd30aa666b8c23ad9644d7aa8660ed904",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "php": "^8.1",
+                "symfony/config": "^6.2",
                 "symfony/dependency-injection": "^6.2",
                 "symfony/http-kernel": "^6.2"
             },
@@ -1817,7 +1818,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Ser\\DTORequestBundle\\": "src/"
+                    "Ser\\DtoRequestBundle\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1838,9 +1839,9 @@
             ],
             "support": {
                 "issues": "https://github.com/SerRashin/dto-request-bundle/issues",
-                "source": "https://github.com/SerRashin/dto-request-bundle/tree/0.1.0"
+                "source": "https://github.com/SerRashin/dto-request-bundle/tree/0.1.1"
             },
-            "time": "2023-04-10T01:19:42+00:00"
+            "time": "2023-05-28T12:52:05+00:00"
         },
         {
             "name": "symfony/cache",

@@ -38,6 +38,6 @@ final class ViewController
             return $this->responseFactory->notFound("User not found");
         }
 
-        return $this->responseFactory->createResponse(UserView::create($currentUser));
+        return $this->responseFactory->createResponse(UserView::create($user));
     }
 }

@@ -37,7 +37,7 @@ class ProjectService
         $file = $this->storageService->getFileById($projectData->imageId);
 
         if ($file === null) {
-            return new Error("Image id not found");
+            return new Error('Validation Error', ['imageId' => 'Image id not found']);
         }
 
         $tags = $this->tagService->createTags($projectData->tags);
@@ -72,7 +72,7 @@ class ProjectService
         $file = $this->storageService->getFileById($projectData->imageId);
 
         if ($file === null) {
-            return new Error("Image id not found");
+            return new Error('Validation Error', ['imageId' => 'Image id not found']);
         }
 
         $tags = $this->tagService->createTags($projectData->tags);

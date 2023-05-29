@@ -11,6 +11,7 @@ use RashinMe\Service\Project\ProjectService;
 use RashinMe\Service\Response\ResponseFactoryInterface;
 use RashinMe\View\ErrorView;
 use RashinMe\View\ProjectView;
+use Ser\DtoRequestBundle\Attributes\Dto;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -23,7 +24,7 @@ final class CreateController
     ) {
     }
 
-    public function __invoke(ProjectData $projectData): Response
+    public function __invoke(#[Dto] ProjectData $projectData): Response
     {
         if (!$this->security->isGranted(Permissions::ADMIN)) {
             return $this->responseFactory->forbidden("You're not allowed to create projects");

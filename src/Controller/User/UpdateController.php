@@ -11,6 +11,7 @@ use RashinMe\Service\User\Dto\UserData;
 use RashinMe\Service\User\UserServiceInterface;
 use RashinMe\View\ErrorView;
 use RashinMe\View\UserView;
+use Ser\DtoRequestBundle\Attributes\Dto;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -23,7 +24,7 @@ final class UpdateController
     ) {
     }
 
-    public function __invoke(int $id, UserData $userData): Response
+    public function __invoke(int $id, #[Dto] UserData $userData): Response
     {
         if (!$this->security->isGranted(Permissions::ADMIN)) {
             return $this->responseFactory->forbidden("You can't have access to modify user data");

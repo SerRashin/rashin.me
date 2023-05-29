@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RashinMe\Controller\Job;
 
 use RashinMe\FunctionalTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class CreateControllerTest extends FunctionalTestCase
 {
@@ -13,41 +14,64 @@ class CreateControllerTest extends FunctionalTestCase
     protected function setUp(): void
     {
         parent::setUp();
-    }
 
-    public function testBadRequest(): void
-    {
-        $response = $this->sendRequest('POST', self::API_URL);
-
-        self::assertEquals(
-            '{"code":400,"message":"Request body is empty"}',
-            $response->getContent()
-        );
+        $this->registerAdmin('test@user.com');
     }
 
     public function testAccessForbidden(): void
     {
-        $response = $this->sendRequest('POST', self::API_URL, [
-            'name' => 'name',
-            'company' => [
-                'name' => 'company.name',
-                'url' => 'company.url',
-            ],
-            'description' => 'description',
-            'type' => 'type',
-            'from' => [
-                'month' => 1,
-                'year' => 2011,
-            ],
-            'to' => [
-                'month' => 2,
-                'year' => 2012,
+        $this->sendRequest('POST', self::API_URL, []);
+
+        $this->assertStatusCodeEqualsTo(Response::HTTP_FORBIDDEN);
+        $this->assertJsonEqualsData([
+            'code' => 403,
+            'message' => 'You\'re not allowed to create jobs',
+        ]);
+    }
+
+    public function testValidationErrors(): void
+    {
+        $requestData = [];
+
+        $this->login('test@user.com');
+        $this->sendRequest('POST', self::API_URL, $requestData);
+
+        $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonEqualsData([
+            'message' => 'Validation Error',
+            'details' => [
+                'company.name' => 'This value should not be blank.',
+                'company.url' => 'This value should not be blank.',
+                'name' => 'This value should not be blank.',
+                'description' => 'This value should not be blank.',
+                'type' => 'This value should not be blank.',
+                'from.month' => 'This value should not be blank.',
+                'from.year' => 'This value should not be blank.',
             ],
         ]);
+    }
 
-        self::assertEquals(
-            '{"code":403,"message":"You\u0027re not allowed to create jobs"}',
-            $response->getContent()
-        );
+    public function testCreateJob(): void
+    {
+        $requestData = [
+            'name' => 'Job name',
+            'company' => [
+                'name' => 'some company',
+                'url' => 'https://site.company.com'
+            ],
+            'description' => 'some long description of job',
+            'type' => 'type-name',
+            'from' => [
+                'month' => 11,
+                'year' => 2011,
+            ]
+        ];
+
+        $this->login('test@user.com');
+
+        $this->sendRequest('POST', self::API_URL, $requestData);
+
+        $this->assertStatusCodeEqualsTo(Response::HTTP_OK);
+        $this->assertJsonContainsData($requestData);
     }
 }

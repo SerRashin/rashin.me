@@ -10,6 +10,7 @@ use RashinMe\Service\User\Dto\RegistrationData;
 use RashinMe\Service\User\RegistrationService;
 use RashinMe\View\UserView;
 use RashinMe\View\ErrorView;
+use Ser\DtoRequestBundle\Attributes\Dto;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -23,7 +24,7 @@ final class RegistrationController
     ) {
     }
 
-    public function __invoke(RegistrationData $registrationData): Response
+    public function __invoke(#[Dto] RegistrationData $registrationData): Response
     {
         $result = $this->registrationService->register($registrationData);
 

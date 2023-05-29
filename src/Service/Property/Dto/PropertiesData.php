@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace RashinMe\Service\Property\Dto;
 
-use Ser\DTORequestBundle\Attributes\MapToArrayOf;
+use Ser\DtoRequestBundle\Attributes\MapToArrayOf;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Assert\Cascade]
 class PropertiesData
 {
     /**
-     * @var PropertyData[]
+     * @param PropertyData[] $properties
      */
-    #[MapToArrayOf(PropertyData::class)]
-    public array $properties = [];
+    public function __construct(
+        #[MapToArrayOf(PropertyData::class)]
+        public readonly array $properties,
+    ) {
+    }
 }

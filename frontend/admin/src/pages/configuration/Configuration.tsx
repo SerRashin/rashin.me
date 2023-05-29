@@ -73,19 +73,7 @@ const Configuration = () => {
 
       setRecord(record);
     });
-
-
-    // dataProvider.
-    // get data
   };
-  // userName: string
-  // roles: json
-  // about: string
-  // githubLink: string
-  // linkedinLink: string
-  // siteUrl
-  // emailAddress
-  // userPhotoId
 
   useEffect(() => {
     loadData();
@@ -138,7 +126,7 @@ const Configuration = () => {
               <TextInput source=''/>
             </SimpleFormIterator>
           </ArrayInput>
-          <TextInput source="about" fullWidth validate={required()}/>
+          <TextInput source="about" multiline fullWidth validate={required()}/>
           <TextInput source="githubLink" fullWidth validate={required()}/>
           <TextInput source="linkedinLink" fullWidth validate={required()}/>
           <TextInput source="siteUrl" fullWidth validate={required()}/>

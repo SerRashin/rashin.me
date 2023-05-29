@@ -9,37 +9,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Assert\Cascade]
 class JobData
 {
-    #[Assert\NotBlank]
-    public string $name;
-
-    #[Assert\NotBlank]
-    public CompanyData $company;
-
-    #[Assert\Length(min:10)]
-    #[Assert\NotBlank]
-    public string $description;
-
-    #[Assert\NotBlank]
-    public string $type;
-
-    #[Assert\NotBlank]
-    public DateData $from;
-
-    public ?DateData $to;
-
     public function __construct(
-        string $name,
-        string $description,
-        string $type,
-        CompanyData $company,
-        DateData $from,
-        ?DateData $to = null
+        #[Assert\NotBlank]
+        public readonly string $name,
+        #[Assert\NotBlank]
+        public readonly CompanyData $company,
+        #[Assert\Length(min:10)]
+        #[Assert\NotBlank]
+        public readonly string $description,
+        #[Assert\NotBlank]
+        public readonly string $type,
+        #[Assert\NotBlank]
+        public readonly DateData $from,
+        public readonly ?DateData $to = null,
     ) {
-        $this->name = $name;
-        $this->description = $description;
-        $this->type = $type;
-        $this->company = $company;
-        $this->from = $from;
-        $this->to = $to;
     }
 }

@@ -1,358 +1,1 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            font-weight: normal;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        h1, h2, h3, h4 {
-            margin: 0;
-        }
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        .column {
-            float: left;
-            width: 50%;
-        }
-
-        #header {
-            display: block;
-            position: relative;
-            width: 100%;
-            height: 150px;
-            border-bottom: 1px solid #656565;
-            margin-bottom: 4px;
-
-        }
-        #photo {
-            display: block;
-            width: 20%;
-            float: left;
-            height: 140px;
-            /*border: 1px solid #c4c4c4;*/
-            margin: 4px  5px 0 0;
-            padding: 1px;
-            text-align:center;
-            vertical-align: center;
-        }
-        #photo img {
-            max-height: 140px;
-            max-width: 150px;
-            vertical-align: center;
-            display: block;
-        }
-        #info {
-            display: block;
-            width: 80%;
-            float: left;
-            height: 150px;
-            position: relative;
-        }
-        #info h1 {
-            padding: 0;
-            font-weight: normal;
-            margin: 5px 0 1px 0;
-        }
-        #info h3 {
-            padding: 0;
-            font-weight: normal;
-            color: #0c69d5;
-            font-size: 17px;
-            margin: 0 0 5px 2px;
-        }
-        #info ul {
-            width: 100%;
-            list-style: none;
-            padding: 0;
-            display: block;
-            margin: 25px 0 0 0;
-            color: #53a3ff;
-        }
-        #info ul li {
-            margin: 0 0 5px 0;
-            height: 20px;
-            width: 32%;
-            text-align: left;
-            display: inline-block;
-            font-size: 12px;
-        }
-        #info ul li a {
-            color: #0c69d5;
-        }
-        #info ul li img {
-            margin: 0 2px -5px 0;
-            padding: 0;
-            width: 18px;
-            height: 18px;
-            color: #1672d0;
-        }
-        #info ul li a:hover {
-            color: #0c69d5;
-        }
-
-        #main {
-            color: #8a8a8a;
-            font-size: 12px;
-        }
-
-        .section_header {
-            color: #53a3ff;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            padding: 0;
-        }
-        #section {
-            width: 100%;
-            word-wrap: break-word ;
-        }
-        #section article {
-            color: #53a3ff;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            padding: 0;
-        }
-        #section pre {
-            font-family: 'Open Sans', sans-serif;
-            font-weight: normal;
-            word-wrap: break-word;
-            white-space:pre-wrap;
-            max-width: 100%;
-            display: inline-block;
-            color: #656565;
-            font-size: 12px;
-        }
-
-        #entry {
-            margin-bottom: 8px;
-        }
-        #entry header {
-            color: #656565;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            padding: 0;
-        }
-
-        .dateTextStyle {
-            color: #8a8a8a;
-            text-align: right;
-        }
-        .jobLink {
-            color: #0c69d5;
-            font-size: 13px;
-            display: inline-block;
-            margin-top: 5px;
-            line-height: 15px;
-        }
-        .jobType {
-            color: #656565;
-            font-size: 13px;
-            display: inline-block;
-            margin-bottom: -1px;
-            line-height: 15px;
-        }
-        .jobType:before {
-            content: "•";
-            margin-right: 3px;
-            color: #8a8a8a;
-        }
-
-        .projectLink {
-            color: #0c69d5;
-            font-size: 13px;
-            padding: 2px 4px 0px 0;
-        }
-    </style>
-</head>
-<body>
-    <header id="header">
-        <div id="photo">
-            {% if userPhoto != null %}
-                <img src="{{ userPhoto }}"/>
-            {% endif %}
-        </div>
-
-        <div id="info">
-            <h1>Sergey Rashin</h1>
-            <h3>Backend Developer</h3>
-            <ul>
-                <li>
-                    <img src="data:image/svg+xml;base64,{{ icons.phone }}" />
-                    <a href="tel:{{ links.phoneNumber }}" target="_blank">
-                        {{ links.phoneNumber }}
-                    </a>
-                </li>
-                <li>
-                    <img src="data:image/svg+xml;base64,{{ icons.email }}" />
-                    <a href="mailto:{{ links.emailAddress }}" target="_blank">{{ links.emailAddress }}</a>
-                </li>
-                <li>
-                    <img src="data:image/svg+xml;base64,{{ icons.site }}" />
-                    <a href="{{ links.siteUrl }}" target="_blank">rashin.me</a>
-                </li>
-                <li>
-                    <img src="data:image/svg+xml;base64,{{ icons.github }}" />
-                    <a href="{{ links.githubLink }}" target="_blank">GitHub</a>
-                </li>
-                <li>
-                    <img src="data:image/svg+xml;base64,{{ icons.linkedin }}" />
-                    <a href="{{ links.linkedinLink }}" target="_blank">
-                        LinkedIn
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </header>
-
-    <section id="main">
-        {% if about != null %}
-            <div id="section">
-                <header class="section_header">
-                    <h2>ABOUT</h2>
-                </header>
-                <div class="body">
-                    {{ about }}
-                </div>
-            </div>
-        {% endif %}
-
-        {% if sections|length > 0 %}
-            <div id="section">
-                <header class="section_header">
-                    <h2>SKILLS</h2>
-                </header>
-                <div class="body">
-                    {% for key, section in sections %}
-                        <div id="entry">
-                            <h3>{{ section.name }}</h3>
-                            <div>
-                                {% for key, skill in section.skills %}
-                                    {{ skill.name }}{% if section.skills|length != key+1 %},{% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
-
-        {% if jobs|length > 0 %}
-            <div id="section">
-                <header class="section_header">
-                    <h2>WORK EXPERIENCE</h2>
-                </header>
-                <div class="body">
-                    {% for key, job in jobs %}
-                        <div id="entry">
-                            <header>
-                                <div class="row">
-                                    <h3>
-                                        <h3>{{ job.name }}</h3>
-                                    </h3>
-                                </div>
-                                <div class="row">
-                                    <div class="column">
-                                        <a href="{{ job.company.url }}" target="_blank" class="jobLink">
-                                            {{ job.company.name }}
-                                        </a>
-                                        <div class="jobType">{{ job.type }}</div>
-                                    </div>
-                                    <div class="column dateTextStyle">
-                                        <span>
-                                            {{ job.fromDate|date('m-Y') }}/{% if job.toDate == null %}Present{% else %}{{ job.toDate|date('m-Y') }}{% endif %}
-                                        </span>
-                                    </div>
-                                </div>
-                            </header>
-                            <div>
-                                <pre>{{ job.description }}</pre>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
-
-        {% if projects|length > 0 %}
-            <div id="section">
-                <header class="section_header">
-                    <h2>PROJECTS</h2>
-                </header>
-                <div class="body">
-                    {% for key, project in projects %}
-                        <div id="entry">
-                            <header>
-                                <div class="row">
-                                    <h3>{{ project.name }}</h3>
-                                </div>
-                                {% if project.links|length > 0 %}
-                                    <div class="row">
-                                        {% for key, link in project.links %}
-                                            <a href="{{ link.url }}" target="_blank" class="projectLink">
-                                                {{ link.title }}
-                                            </a>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-                            </header>
-                            <div>
-                                <pre>{{ project.description }}</pre>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
-
-        {% if educations|length > 0 %}
-            <div id="section">
-                <header class="section_header">
-                    <h2>EDUCATION</h2>
-                </header>
-
-                <div class="body">
-                    {% for key, education in educations %}
-                        <div id="entry">
-                            <header>
-                                <div class="row">
-                                    <h3>{{ education.institution }}</h3>
-                                </div>
-                                <div class="row">
-                                    <div class="column">
-                                        <h4>{{ education.faculty }}</h4>
-                                    </div>
-                                    <div class="column dateTextStyle">
-                                        <span>
-                                            {{ education.fromDate|date('m-Y') }}/{% if education.toDate == null %}Present{% else %}{{ education.toDate|date('m-Y') }}{% endif %}
-                                        </span>
-                                    </div>
-                                </div>
-                            </header>
-                            <div>
-                                {{ education.specialization }}
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
-    </section>
-
-    <footer id="footer">
-
-    </footer>
-</body>
-</html>
+<!DOCTYPE html><html><head>    <meta charset="utf-8">    <title>{{ title }}</title>    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    <link rel="preconnect" href="https://fonts.googleapis.com">    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">    <style>        body {            font-family: 'Open Sans', sans-serif;            font-weight: normal;            padding-left: 30px;            padding-right: 30px;        }        * {            margin: 0;            padding: 0;            box-sizing: border-box;        }        h1, h2, h3, h4 {            margin: 0;        }        .row:after {            content: "";            display: table;            clear: both;        }        .column {            float: left;            width: 50%;        }        #header {            display: block;            position: relative;            width: 100%;            height: 150px;            border-bottom: 1px solid #656565;            margin-bottom: 4px;        }        #photo {            display: block;            width: 20%;            float: left;            height: 140px;            /*border: 1px solid #c4c4c4;*/            margin: 4px  5px 0 0;            padding: 1px;            text-align:center;            vertical-align: center;        }        #photo img {            max-height: 140px;            max-width: 150px;            vertical-align: center;            display: block;        }        #info {            display: block;            width: 80%;            float: left;            height: 150px;            position: relative;        }        #info h1 {            padding: 0;            font-weight: normal;            margin: 5px 0 1px 0;        }        #info h3 {            padding: 0;            font-weight: normal;            color: #0c69d5;            font-size: 17px;            margin: 0 0 5px 2px;        }        #info ul {            width: 100%;            list-style: none;            padding: 0;            display: block;            margin: 25px 0 0 0;            color: #53a3ff;        }        #info ul li {            margin: 0 0 5px 0;            height: 20px;            width: 32%;            text-align: left;            display: inline-block;            font-size: 12px;        }        #info ul li a {            color: #0c69d5;        }        #info ul li img {            margin: 0 2px -5px 0;            padding: 0;            width: 18px;            height: 18px;            color: #1672d0;        }        #info ul li a:hover {            color: #0c69d5;        }        #main {            color: #8a8a8a;            font-size: 12px;        }        .section_header {            color: #53a3ff;            margin-top: 15px;            margin-bottom: 5px;            padding: 0;        }        #section {            width: 100%;            word-wrap: break-word ;        }        #section article {            color: #53a3ff;            margin-top: 15px;            margin-bottom: 5px;            padding: 0;        }        #section pre {            font-family: 'Open Sans', sans-serif;            font-weight: normal;            word-wrap: break-word;            white-space:pre-wrap;            max-width: 100%;            display: inline-block;            color: #656565;            font-size: 12px;        }        #entry {            margin-bottom: 8px;        }        #entry header {            color: #656565;            margin-top: 5px;            margin-bottom: 5px;            padding: 0;        }        .dateTextStyle {            color: #8a8a8a;            text-align: right;        }        .jobLink {            color: #0c69d5;            font-size: 13px;            display: inline-block;            margin-top: 5px;            line-height: 15px;        }        .jobType {            color: #656565;            font-size: 13px;            display: inline-block;            margin-bottom: -1px;            line-height: 15px;        }        .jobType:before {            content: "•";            margin-right: 3px;            color: #8a8a8a;        }        .projectLink {            color: #0c69d5;            font-size: 13px;            padding: 2px 4px 0px 0;        }    </style></head><body>    <header id="header">        <div id="photo">            {% if userPhoto != null %}                <img src="{{ userPhoto }}"/>            {% endif %}        </div>        <div id="info">            <h1>Sergey Rashin</h1>            <h3>Backend Developer</h3>            <ul>                <li>                    <img src="data:image/svg+xml;base64,{{ icons.phone }}" />                    <a href="tel:{{ links.phoneNumber }}" target="_blank">                        {{ links.phoneNumber }}                    </a>                </li>                <li>                    <img src="data:image/svg+xml;base64,{{ icons.email }}" />                    <a href="mailto:{{ links.emailAddress }}" target="_blank">{{ links.emailAddress }}</a>                </li>                <li>                    <img src="data:image/svg+xml;base64,{{ icons.site }}" />                    <a href="{{ links.siteUrl }}" target="_blank">rashin.me</a>                </li>                <li>                    <img src="data:image/svg+xml;base64,{{ icons.github }}" />                    <a href="{{ links.githubLink }}" target="_blank">GitHub</a>                </li>                <li>                    <img src="data:image/svg+xml;base64,{{ icons.linkedin }}" />                    <a href="{{ links.linkedinLink }}" target="_blank">                        LinkedIn                    </a>                </li>            </ul>        </div>    </header>    <section id="main">        {% if about != null %}            <div id="section">                <header class="section_header">                    <h2>ABOUT</h2>                </header>                <div class="body">                    {{ about }}                </div>            </div>        {% endif %}        {% if sections|length > 0 %}            <div id="section">                <header class="section_header">                    <h2>SKILLS</h2>                </header>                <div class="body">                    {% for key, section in sections %}                        <div id="entry">                            <h3>{{ section.name }}</h3>                            <div>                                {% for key, skill in section.skills %}                                    {{ skill.name }}{% if section.skills|length != key+1 %},{% endif %}                                {% endfor %}                            </div>                        </div>                    {% endfor %}                </div>            </div>        {% endif %}        {% if jobs|length > 0 %}            <div id="section">                <header class="section_header">                    <h2>WORK EXPERIENCE</h2>                </header>                <div class="body">                    {% for key, job in jobs %}                        <div id="entry">                            <header>                                <div class="row">                                    <h3>                                        <h3>{{ job.name }}</h3>                                    </h3>                                </div>                                <div class="row">                                    <div class="column">                                        <a href="{{ job.company.url }}" target="_blank" class="jobLink">                                            {{ job.company.name }}                                        </a>                                        <div class="jobType">{{ job.type }}</div>                                    </div>                                    <div class="column dateTextStyle">                                        <span>                                            {{ job.fromDate|date('m-Y') }}/{% if job.toDate == null %}Present{% else %}{{ job.toDate|date('m-Y') }}{% endif %}                                        </span>                                    </div>                                </div>                            </header>                            <div>                                <pre>{{ job.description }}</pre>                            </div>                        </div>                    {% endfor %}                </div>            </div>        {% endif %}        {% if projects|length > 0 %}            <div id="section">                <header class="section_header">                    <h2>PROJECTS</h2>                </header>                <div class="body">                    {% for key, project in projects %}                        <div id="entry">                            <header>                                <div class="row">                                    <h3>{{ project.name }}</h3>                                </div>                                {% if project.links|length > 0 %}                                    <div class="row">                                        {% for key, link in project.links %}                                            <a href="{{ link.url }}" target="_blank" class="projectLink">                                                {{ link.title }}                                            </a>                                        {% endfor %}                                    </div>                                {% endif %}                            </header>                            <div>                                <pre>{{ project.description }}</pre>                            </div>                        </div>                    {% endfor %}                </div>            </div>        {% endif %}        {% if educations|length > 0 %}            <div id="section">                <header class="section_header">                    <h2>EDUCATION</h2>                </header>                <div class="body">                    {% for key, education in educations %}                        <div id="entry">                            <header>                                <div class="row">                                    <h3>{{ education.institution }}</h3>                                </div>                                <div class="row">                                    <div class="column">                                        <h4>{{ education.faculty }}</h4>                                    </div>                                    <div class="column dateTextStyle">                                        <span>                                            {{ education.fromDate|date('m-Y') }}/{% if education.toDate == null %}Present{% else %}{{ education.toDate|date('m-Y') }}{% endif %}                                        </span>                                    </div>                                </div>                            </header>                            <div>                                {{ education.specialization }}                            </div>                        </div>                    {% endfor %}                </div>            </div>        {% endif %}    </section>    <footer id="footer">    </footer></body></html>

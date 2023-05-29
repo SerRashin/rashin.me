@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RashinMe\Service\Project\Dto;
 
-use Ser\DTORequestBundle\Attributes\MapToArrayOf;
+use Ser\DtoRequestBundle\Attributes\MapToArrayOf;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Assert\Cascade]
@@ -34,7 +34,7 @@ class ProjectData
         public readonly string $description,
         #[Assert\Type('int')]
         #[Assert\NotBlank]
-        public readonly int $imageId,
+        public readonly ?int $imageId,
     ) {
     }
 }

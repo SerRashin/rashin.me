@@ -8,18 +8,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class DateData
 {
-    #[Assert\DateTime(format: "m")]
-    #[Assert\NotBlank]
-    public ?int $month;
-    #[Assert\DateTime(format: "Y")]
-    #[Assert\NotBlank]
-    public ?int $year;
-
     public function __construct(
-        int $month,
-        int $year,
+        #[Assert\DateTime(format: "m")]
+        #[Assert\NotBlank]
+        public readonly ?int $month,
+        #[Assert\DateTime(format: "Y")]
+        #[Assert\NotBlank]
+        public readonly ?int $year,
     ) {
-        $this->month = $month;
-        $this->year = $year;
     }
 }
