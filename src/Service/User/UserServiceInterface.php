@@ -21,9 +21,9 @@ interface UserServiceInterface
      * @param UserInterface $user
      * @param UserData $userData
      *
-     * @return UserInterface|ErrorInterface
+     * @return UserInterface
      */
-    public function updateUser(UserInterface $user, UserData $userData): UserInterface|ErrorInterface;
+    public function updateUser(UserInterface $user, UserData $userData): UserInterface;
 
     /**
      * Delete user

@@ -13,9 +13,6 @@ use RashinMe\Service\Project\Dto\ProjectData;
 use RashinMe\Service\Project\Dto\ProjectFilter;
 use RashinMe\Service\Project\Repository\ProjectRepositoryInterface;
 use RashinMe\Service\Storage\StorageService;
-use RashinMe\Service\Validation\ValidationServiceInterface;
-use RuntimeException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProjectService
 {

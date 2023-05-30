@@ -5,19 +5,16 @@ declare(strict_types=1);
 namespace RashinMe\Service\User;
 
 use Doctrine\Common\Collections\Collection;
-use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\User\Dto\UserData;
 use RashinMe\Service\User\Dto\UserFilter;
 use RashinMe\Service\User\Model\UserInterface;
 use RashinMe\Service\User\Repository\UserRepositoryInterface;
-use RashinMe\Service\Validation\ValidationServiceInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserService implements UserServiceInterface
 {
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,
-        private readonly ValidationServiceInterface $validationService,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
     ) {
     }

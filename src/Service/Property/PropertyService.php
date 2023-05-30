@@ -9,8 +9,6 @@ use RashinMe\Entity\Property;
 use RashinMe\Service\Property\Dto\PropertiesData;
 use RashinMe\Service\Property\Dto\PropertyFilter;
 use RashinMe\Service\Property\Repository\PropertyRepositoryInterface;
-use RashinMe\Service\ErrorInterface;
-use RashinMe\Service\Validation\ValidationServiceInterface;
 
 class PropertyService
 {

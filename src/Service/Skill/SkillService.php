@@ -12,12 +12,10 @@ use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Skill\Dto\SkillData;
 use RashinMe\Service\Skill\Dto\SkillFilter;
 use RashinMe\Service\Storage\StorageService;
-use RashinMe\Service\Validation\ValidationServiceInterface;
 
 class SkillService
 {
     public function __construct(
-        private readonly ValidationServiceInterface $validationService,
         private readonly SkillRepository $skillRepository,
         private readonly StorageService $storageService,
         private readonly SectionService $sectionService,
@@ -67,12 +65,6 @@ class SkillService
      */
     public function updateSkill(SkillData $skillData, Skill $skill): Skill|ErrorInterface
     {
-        $validationError = $this->validationService->validate($skillData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
         $file = $this->storageService->getFileById($skillData->imageId);
 
         if ($file === null) {

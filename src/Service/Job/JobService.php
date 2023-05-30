@@ -8,20 +8,16 @@ use DateTime;
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Company;
 use RashinMe\Entity\Job;
-use RashinMe\Service\Error;
-use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Job\Dto\DateData;
 use RashinMe\Service\Job\Dto\JobData;
 use RashinMe\Service\Job\Dto\JobFilter;
 use RashinMe\Service\Job\Dto\JobSort;
 use RashinMe\Service\Job\Repository\JobRepositoryInterface;
-use RashinMe\Service\Validation\ValidationServiceInterface;
 
 class JobService
 {
     public function __construct(
         private readonly JobRepositoryInterface $jobRepository,
-        private readonly ValidationServiceInterface $validationService,
     ) {
     }
 

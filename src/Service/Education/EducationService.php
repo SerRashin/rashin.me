@@ -12,8 +12,6 @@ use RashinMe\Service\Education\Dto\EducationData;
 use RashinMe\Service\Education\Dto\EducationFilter;
 use RashinMe\Service\Education\Dto\EducationSort;
 use RashinMe\Service\Education\Repository\EducationRepositoryInterface;
-use RashinMe\Service\ErrorInterface;
-use RashinMe\Service\Validation\ValidationServiceInterface;
 
 class EducationService
 {

@@ -19,8 +19,5 @@ class LinkRepositoryTest extends FunctionalTestCase
         $this->repository = new LinkRepository($this->getEntityManager());
     }
 
-    public function testAddLink(): void
-    {
 
-    }
 }
