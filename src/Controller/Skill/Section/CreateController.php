@@ -9,6 +9,7 @@ use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Response\ResponseFactoryInterface;
 use RashinMe\Service\Skill\Dto\SectionData;
 use RashinMe\Service\Skill\SectionService;
+use RashinMe\Service\Validation\ValidationServiceInterface;
 use RashinMe\View\ErrorView;
 use RashinMe\View\SectionView;
 use Ser\DtoRequestBundle\Attributes\Dto;
@@ -21,6 +22,7 @@ final class CreateController
         private readonly ResponseFactoryInterface $responseFactory,
         private readonly AuthorizationCheckerInterface $security,
         private readonly SectionService $sectionService,
+        private readonly ValidationServiceInterface $validationService,
     ) {
     }
 
@@ -28,6 +30,15 @@ final class CreateController
     {
         if (!$this->security->isGranted(Permissions::ADMIN)) {
             return $this->responseFactory->forbidden("You're not allowed to create skill sections");
+        }
+
+        $validationError = $this->validationService->validate($sectionData);
+
+        if ($validationError !== null) {
+            return $this->responseFactory->createResponse(
+                ErrorView::create($validationError),
+                400
+            );
         }
 
         $result = $this->sectionService->addSection($sectionData);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RashinMe\Controller\User;
 
+use RashinMe\Entity\User;
 use RashinMe\FunctionalTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,6 +33,25 @@ class RegistrationControllerTest extends FunctionalTestCase
         ]);
     }
 
+    public function testDuplicateEmailError(): void
+    {
+        $this->createUser('test@email.com');
+        $requestData = [
+            'firstName' => 'Name',
+            'lastName' => 'LastName',
+            'email' => 'test@email.com',
+            'password' => '123ewe14rewa',
+        ];
+
+        $this->sendRequest('POST', self::API_URL, $requestData);
+
+        $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonEqualsData([
+            'message' => 'Email address already exists.',
+            'details' => []
+        ]);
+    }
+
     public function testRegistration(): void
     {
         $requestData = [
@@ -47,5 +67,19 @@ class RegistrationControllerTest extends FunctionalTestCase
 
         $this->assertStatusCodeEqualsTo(Response::HTTP_CREATED);
         $this->assertJsonContainsData($requestData);
+    }
+
+    private function createUser(string $email)
+    {
+        $skill = new User(
+            $email,
+            'pwd',
+            'fname',
+            'lname'
+        );
+
+        $this->saveEntities($skill);
+
+        return $skill;
     }
 }

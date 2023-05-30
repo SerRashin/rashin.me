@@ -43,6 +43,54 @@ class UpdateControllerTest extends FunctionalTestCase
         ]);
     }
 
+    public function testValidationErrors(): void
+    {
+        $project = $this->createProject();
+
+        $this->login('test@user.com');
+        $this->sendRequest('PATCH', sprintf(self::API_URL, $project->getId()));
+
+        $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonEqualsData([
+            'message' => 'Validation Error',
+            'details' => [
+                'name' => 'This value should not be blank.',
+                'description' => 'This value should not be blank.',
+                'imageId' => 'This value should not be blank or zero.',
+            ]
+        ]);
+    }
+
+    public function testImageValidationError(): void
+    {
+        $project = $this->createProject();
+
+        $requestData = [
+            'name' => 'some name',
+            'imageId' => 3213,
+            'description' => 'Lorem ipsum dolar. Lorem ipsum dolar.',
+            'tags' => [
+                'Tag1',
+                'Tag2',
+            ],
+            'links' => [
+                [
+                    'title' => "GitHub",
+                    'url' => 'https://github.com/some/project'
+                ]
+            ]
+        ];
+
+        $this->login('test@user.com');
+        $this->sendRequest('PATCH', sprintf(self::API_URL, $project->getId()), $requestData);
+
+        $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonEqualsData([
+            'message' => 'Image not found',
+            'details' => []
+        ]);
+    }
+
     public function testUpdateProject(): void
     {
         $project = $this->createProject();

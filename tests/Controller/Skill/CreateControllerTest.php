@@ -40,17 +40,17 @@ class CreateControllerTest extends FunctionalTestCase
             'message' => 'Validation Error',
             'details' => [
                 'name' => 'This value should not be blank.',
-                'sectionId' => 'This value should not be blank.',
-                'imageId' => 'This value should not be blank.',
+                'sectionId' => 'This value should not be blank or zero.',
+                'imageId' => 'This value should not be blank or zero.',
             ]
         ]);
     }
 
-    public function testImageValidationError(): void
+    public function testImageNotFoundError(): void
     {
         $requestData = [
             'name' => 'Job name',
-            'sectionId' => 0,
+            'sectionId' => 1,
             'imageId' => 1,
             'description' => 'description description description',
         ];
@@ -60,14 +60,12 @@ class CreateControllerTest extends FunctionalTestCase
 
         $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
         $this->assertJsonEqualsData([
-            'message' => 'Validation Error',
-            'details' => [
-                'image' => 'Image id not found'
-            ]
+            'message' => 'Image not found',
+            'details' => [],
         ]);
     }
 
-    public function testSectionValidationError(): void
+    public function testSectionNotFoundError(): void
     {
         $file = $this->createStorageFile();
 
@@ -83,10 +81,8 @@ class CreateControllerTest extends FunctionalTestCase
 
         $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
         $this->assertJsonEqualsData([
-            'message' => 'Validation Error',
-            'details' => [
-                'section' => 'Section id not found'
-            ]
+            'message' => 'Section not found',
+            'details' => []
         ]);
     }
 

@@ -33,22 +33,16 @@ class SkillService
      */
     public function addSkill(SkillData $skillData): Skill|ErrorInterface
     {
-        $validationError = $this->validationService->validate($skillData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
-        $file = $this->storageService->getFileById($skillData->imageId ?? 0);
+        $file = $this->storageService->getFileById($skillData->imageId);
 
         if ($file === null) {
-            return new Error('Validation Error', ['image' => 'Image id not found']);
+            return new Error('Image not found');
         }
 
-        $section = $this->sectionService->getSectionById($skillData->sectionId ?? 0);
+        $section = $this->sectionService->getSectionById($skillData->sectionId);
 
         if ($section === null) {
-            return new Error('Validation Error', ['section' => 'Section id not found']);
+            return new Error('Section not found');
         }
 
         $skill = new Skill(
@@ -82,13 +76,13 @@ class SkillService
         $file = $this->storageService->getFileById($skillData->imageId);
 
         if ($file === null) {
-            return new Error("Image id not found");
+            return new Error("Image not found");
         }
 
         $section = $this->sectionService->getSectionById($skillData->sectionId);
 
         if ($section === null) {
-            return new Error("Section id not found");
+            return new Error("Section not found");
         }
 
         $skill->changeName($skillData->name);

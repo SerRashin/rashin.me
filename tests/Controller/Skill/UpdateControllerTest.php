@@ -44,6 +44,68 @@ class UpdateControllerTest extends FunctionalTestCase
         ]);
     }
 
+    public function testValidationErrors(): void
+    {
+        $skill = $this->createSkill();
+
+        $this->login('test@user.com');
+        $this->sendRequest('PATCH', sprintf(self::API_URL, $skill->getId()));
+
+        $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonEqualsData([
+            'message' => 'Validation Error',
+            'details' => [
+                'name' => 'This value should not be blank.',
+                'sectionId' => 'This value should not be blank or zero.',
+                'imageId' => 'This value should not be blank or zero.',
+            ]
+        ]);
+    }
+
+    public function testImageNotFoundError(): void
+    {
+        $skill = $this->createSkill();
+        $newSection = $this->createSection('new section name');
+
+        $requestData = [
+            'name' => 'Job name',
+            'sectionId' => $newSection->getId(),
+            'imageId' => 1123,
+            'description' => 'description description description',
+        ];
+
+        $this->login('test@user.com');
+        $this->sendRequest('PATCH', sprintf(self::API_URL, $skill->getId()), $requestData);
+
+        $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonEqualsData([
+            'message' => 'Image not found',
+            'details' => [],
+        ]);
+    }
+
+    public function testSectionNotFoundError(): void
+    {
+        $skill = $this->createSkill();
+        $newFile = $this->createStorageFile();
+
+        $requestData = [
+            'name' => 'Job name',
+            'sectionId' => 123,
+            'imageId' => $newFile->getId(),
+            'description' => 'description description description',
+        ];
+
+        $this->login('test@user.com');
+        $this->sendRequest('PATCH', sprintf(self::API_URL, $skill->getId()), $requestData);
+
+        $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonEqualsData([
+            'message' => 'Section not found',
+            'details' => [],
+        ]);
+    }
+
     public function testUpdateSkill(): void
     {
         $skill = $this->createSkill();

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RashinMe\Service\Project\Dto;
 
+use RashinMe\Service\Project\Constraint\ImageExists;
 use Ser\DtoRequestBundle\Attributes\MapToArrayOf;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,12 +30,11 @@ class ProjectData
         #[Assert\Length(min: 6)]
         #[Assert\NotBlank]
         public readonly string $name,
-        #[Assert\Length(min: 15)]
+        #[Assert\Length(min: 10)]
         #[Assert\NotBlank]
         public readonly string $description,
-        #[Assert\Type('int')]
-        #[Assert\NotBlank]
-        public readonly ?int $imageId,
+        #[Assert\NotEqualTo(value: 0, message: 'This value should not be blank or zero.')]
+        public readonly int $imageId,
     ) {
     }
 }

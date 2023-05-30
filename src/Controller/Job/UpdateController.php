@@ -9,6 +9,7 @@ use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Job\Dto\JobData;
 use RashinMe\Service\Job\JobService;
 use RashinMe\Service\Response\ResponseFactoryInterface;
+use RashinMe\Service\Validation\ValidationServiceInterface;
 use RashinMe\View\ErrorView;
 use RashinMe\View\JobView;
 use Ser\DtoRequestBundle\Attributes\Dto;
@@ -24,6 +25,7 @@ final class UpdateController
         private readonly ResponseFactoryInterface $responseFactory,
         private readonly AuthorizationCheckerInterface $security,
         private readonly JobService $jobService,
+        private readonly ValidationServiceInterface $validationService,
     ) {
     }
 
@@ -39,12 +41,17 @@ final class UpdateController
             return $this->responseFactory->notFound("Job not found");
         }
 
-        $result = $this->jobService->updateJob($job, $jobData);
+        $validationError = $this->validationService->validate($jobData);
 
-        if ($result instanceof ErrorInterface) {
-            return $this->responseFactory->createResponse(ErrorView::create($result), 400);
+        if ($validationError !== null) {
+            return $this->responseFactory->createResponse(
+                ErrorView::create($validationError),
+                400
+            );
         }
 
-        return $this->responseFactory->createResponse(JobView::create($result));
+        return $this->responseFactory->createResponse(JobView::create(
+            $this->jobService->updateJob($job, $jobData)
+        ));
     }
 }

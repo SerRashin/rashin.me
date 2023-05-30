@@ -19,7 +19,6 @@ class EducationService
 {
     public function __construct(
         private readonly EducationRepositoryInterface $educationRepository,
-        private readonly ValidationServiceInterface $validationService,
     ) {
     }
 
@@ -28,16 +27,10 @@ class EducationService
      *
      * @param EducationData $educationData
      *
-     * @return Education|ErrorInterface
+     * @return Education
      */
-    public function addEducation(EducationData $educationData): Education|ErrorInterface
+    public function addEducation(EducationData $educationData): Education
     {
-        $validationError = $this->validationService->validate($educationData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
         $toDate = null;
 
         if ($educationData->to !== null) {
@@ -63,16 +56,10 @@ class EducationService
      * @param Education $education
      * @param EducationData $educationData
      *
-     * @return Education|ErrorInterface
+     * @return Education
      */
-    public function updateEducation(Education $education, EducationData $educationData): Education|ErrorInterface
+    public function updateEducation(Education $education, EducationData $educationData): Education
     {
-        $validationError = $this->validationService->validate($educationData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
         $fromDate = $this->getDateFromDateData($educationData->from);
 
         $toDate = null;

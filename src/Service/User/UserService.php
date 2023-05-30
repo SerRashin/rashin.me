@@ -22,14 +22,8 @@ class UserService implements UserServiceInterface
     ) {
     }
 
-    public function updateUser(UserInterface $user, UserData $userData): UserInterface|ErrorInterface
+    public function updateUser(UserInterface $user, UserData $userData): UserInterface
     {
-        $validationError = $this->validationService->validate($userData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
         $user->changeFirstName($userData->firstName);
         $user->changeLastName($userData->lastName);
 

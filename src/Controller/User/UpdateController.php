@@ -9,6 +9,7 @@ use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Response\ResponseFactoryInterface;
 use RashinMe\Service\User\Dto\UserData;
 use RashinMe\Service\User\UserServiceInterface;
+use RashinMe\Service\Validation\ValidationServiceInterface;
 use RashinMe\View\ErrorView;
 use RashinMe\View\UserView;
 use Ser\DtoRequestBundle\Attributes\Dto;
@@ -21,6 +22,7 @@ final class UpdateController
         private readonly ResponseFactoryInterface $responseFactory,
         private readonly UserServiceInterface $userService,
         private readonly AuthorizationCheckerInterface $security,
+        private readonly ValidationServiceInterface $validationService,
     ) {
     }
 
@@ -36,12 +38,17 @@ final class UpdateController
             return $this->responseFactory->notFound("User not found");
         }
 
-        $result = $this->userService->updateUser($user, $userData);
+        $validationError = $this->validationService->validate($userData);
 
-        if ($result instanceof ErrorInterface) {
-            return $this->responseFactory->createResponse(ErrorView::create($result), 400);
+        if ($validationError !== null) {
+            return $this->responseFactory->createResponse(
+                ErrorView::create($validationError),
+                400
+            );
         }
 
-        return $this->responseFactory->createResponse(UserView::create($result));
+        return $this->responseFactory->createResponse(UserView::create(
+            $this->userService->updateUser($user, $userData)
+        ));
     }
 }

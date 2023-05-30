@@ -14,12 +14,13 @@ use RashinMe\Service\Project\Dto\ProjectFilter;
 use RashinMe\Service\Project\Repository\ProjectRepositoryInterface;
 use RashinMe\Service\Storage\StorageService;
 use RashinMe\Service\Validation\ValidationServiceInterface;
+use RuntimeException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProjectService
 {
     public function __construct(
         private readonly ProjectRepositoryInterface $projectRepository,
-        private readonly ValidationServiceInterface $validationService,
         private readonly StorageService $storageService,
         private readonly TagService $tagService,
         private readonly LinkService $linkService,
@@ -28,16 +29,10 @@ class ProjectService
 
     public function addProject(ProjectData $projectData): Project|ErrorInterface
     {
-        $validationError = $this->validationService->validate($projectData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
         $file = $this->storageService->getFileById($projectData->imageId);
 
         if ($file === null) {
-            return new Error('Validation Error', ['imageId' => 'Image id not found']);
+            return new Error('Image not found');
         }
 
         $tags = $this->tagService->createTags($projectData->tags);
@@ -63,16 +58,10 @@ class ProjectService
 
     public function updateProject(Project $project, ProjectData $projectData): Project|ErrorInterface
     {
-        $validationError = $this->validationService->validate($projectData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
         $file = $this->storageService->getFileById($projectData->imageId);
 
         if ($file === null) {
-            return new Error('Validation Error', ['imageId' => 'Image id not found']);
+            return new Error('Image not found');
         }
 
         $tags = $this->tagService->createTags($projectData->tags);

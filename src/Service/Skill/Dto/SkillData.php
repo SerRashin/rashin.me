@@ -12,12 +12,10 @@ class SkillData
         #[Assert\Length(min: 1)]
         #[Assert\NotBlank]
         public readonly string $name,
-        #[Assert\Type('int')]
-        #[Assert\NotBlank]
-        public readonly ?int $sectionId,
-        #[Assert\Type('int')]
-        #[Assert\NotBlank]
-        public readonly ?int $imageId,
+        #[Assert\NotEqualTo(value: 0, message: 'This value should not be blank or zero.')]
+        public readonly int $sectionId,
+        #[Assert\NotEqualTo(value: 0, message: 'This value should not be blank or zero.')]
+        public readonly int $imageId,
         public readonly string $description,
     ) {
     }

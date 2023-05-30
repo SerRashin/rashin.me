@@ -9,6 +9,7 @@ use RashinMe\Service\Property\PropertyService;
 use RashinMe\Service\Property\Dto\PropertiesData;
 use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Response\ResponseFactoryInterface;
+use RashinMe\Service\Validation\ValidationServiceInterface;
 use RashinMe\View\PropertiesView;
 use RashinMe\View\ErrorView;
 use Ser\DtoRequestBundle\Attributes\Dto;
@@ -21,6 +22,7 @@ class UpdateController
         private readonly ResponseFactoryInterface $responseFactory,
         private readonly AuthorizationCheckerInterface $security,
         private readonly PropertyService $propertyService,
+        private readonly ValidationServiceInterface $validationService,
     ) {
     }
 
@@ -30,12 +32,17 @@ class UpdateController
             return $this->responseFactory->forbidden("You're not allowed to update configuration");
         }
 
-        $result = $this->propertyService->updateProperties($propertiesData);
+        $validationError = $this->validationService->validate($propertiesData);
 
-        if ($result instanceof ErrorInterface) {
-            return $this->responseFactory->createResponse(ErrorView::create($result), 400);
+        if ($validationError !== null) {
+            return $this->responseFactory->createResponse(
+                ErrorView::create($validationError),
+                400
+            );
         }
 
-        return $this->responseFactory->createResponse(PropertiesView::create($result));
+        return $this->responseFactory->createResponse(PropertiesView::create(
+            $this->propertyService->updateProperties($propertiesData)
+        ));
     }
 }

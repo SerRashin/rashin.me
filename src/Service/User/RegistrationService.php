@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RashinMe\Service\User;
 
 use RashinMe\Entity\User;
+use RashinMe\Service\Error;
 use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\User\Dto\RegistrationData;
 use RashinMe\Service\User\Model\UserInterface;
@@ -30,10 +31,10 @@ final class RegistrationService
      */
     public function register(RegistrationData $registrationData): UserInterface|ErrorInterface
     {
-        $validationError = $this->validationService->validate($registrationData);
+        $existsUser = $this->userRepository->findOneByEmail($registrationData->email);
 
-        if ($validationError !== null) {
-            return $validationError;
+        if ($existsUser !== null) {
+            return new Error('Email address already exists.');
         }
 
         $user = new User(

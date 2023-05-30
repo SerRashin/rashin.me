@@ -40,7 +40,7 @@ class CreateControllerTest extends FunctionalTestCase
             'details' => [
                 'name' => 'This value should not be blank.',
                 'description' => 'This value should not be blank.',
-                'imageId' => 'This value should not be blank.',
+                'imageId' => 'This value should not be blank or zero.',
             ]
         ]);
     }
@@ -68,10 +68,8 @@ class CreateControllerTest extends FunctionalTestCase
 
         $this->assertStatusCodeEqualsTo(Response::HTTP_BAD_REQUEST);
         $this->assertJsonEqualsData([
-            'message' => 'Validation Error',
-            'details' => [
-                'imageId' => 'Image id not found',
-            ]
+            'message' => 'Image not found',
+            'details' => []
         ]);
     }
 

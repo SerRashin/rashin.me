@@ -30,16 +30,10 @@ class JobService
      *
      * @param JobData $jobData
      *
-     * @return Job|ErrorInterface
+     * @return Job
      */
-    public function addJob(JobData $jobData): Job|ErrorInterface
+    public function addJob(JobData $jobData): Job
     {
-        $validationError = $this->validationService->validate($jobData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
         $company = $jobData->company;
 
         $toDate = null;
@@ -68,16 +62,10 @@ class JobService
      * @param Job $job
      * @param JobData $jobData
      *
-     * @return Job|ErrorInterface
+     * @return Job
      */
-    public function updateJob(Job $job, JobData $jobData): Job|ErrorInterface
+    public function updateJob(Job $job, JobData $jobData): Job
     {
-        $validationError = $this->validationService->validate($jobData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
         $toDate = null;
 
         if ($jobData->to !== null) {

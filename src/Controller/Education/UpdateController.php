@@ -9,6 +9,7 @@ use RashinMe\Service\Education\Dto\EducationData;
 use RashinMe\Service\Education\EducationService;
 use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Response\ResponseFactoryInterface;
+use RashinMe\Service\Validation\ValidationServiceInterface;
 use RashinMe\View\EducationView;
 use RashinMe\View\ErrorView;
 use Ser\DtoRequestBundle\Attributes\Dto;
@@ -21,6 +22,7 @@ final class UpdateController
         private readonly ResponseFactoryInterface $responseFactory,
         private readonly AuthorizationCheckerInterface $security,
         private readonly EducationService $educationService,
+        private readonly ValidationServiceInterface $validationService,
     ) {
     }
 
@@ -36,12 +38,17 @@ final class UpdateController
             return $this->responseFactory->notFound("Education not found");
         }
 
-        $result = $this->educationService->updateEducation($education, $educationData);
+        $validationError = $this->validationService->validate($educationData);
 
-        if ($result instanceof ErrorInterface) {
-            return $this->responseFactory->createResponse(ErrorView::create($result), 400);
+        if ($validationError !== null) {
+            return $this->responseFactory->createResponse(
+                ErrorView::create($validationError),
+                400
+            );
         }
 
-        return $this->responseFactory->createResponse(EducationView::create($result));
+        return $this->responseFactory->createResponse(EducationView::create(
+            $this->educationService->updateEducation($education, $educationData)
+        ));
     }
 }

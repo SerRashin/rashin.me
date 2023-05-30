@@ -16,7 +16,6 @@ class PropertyService
 {
     public function __construct(
         private readonly PropertyRepositoryInterface $configurationRepository,
-        private readonly ValidationServiceInterface  $validationService,
     ) {
     }
 
@@ -34,16 +33,10 @@ class PropertyService
     /**
      * @param PropertiesData $configurationData
      *
-     * @return Collection<int, Property>|ErrorInterface
+     * @return Collection<int, Property>
      */
-    public function updateProperties(PropertiesData $configurationData): Collection|ErrorInterface
+    public function updateProperties(PropertiesData $configurationData): Collection
     {
-        $validationError = $this->validationService->validate($configurationData);
-
-        if ($validationError !== null) {
-            return $validationError;
-        }
-
         $keys = [];
         $propertiesData = [];
 
