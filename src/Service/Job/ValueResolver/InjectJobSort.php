@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RashinMe\Service\Job\ValueResolver;
 
-use RashinMe\Service\Job\Dto\JobSort;
+use RashinMe\Service\Job\Filter\JobSort;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;

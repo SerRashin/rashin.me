@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace RashinMe\Controller\Project;
 
 use RashinMe\Entity\Project;
-use RashinMe\Service\Project\Dto\ProjectFilter;
+use RashinMe\Service\Project\Filter\ProjectFilter;
+use RashinMe\Service\Project\Filter\ProjectSort;
 use RashinMe\Service\Project\ProjectService;
 use RashinMe\Service\Response\Dto\CollectionChunk;
 use RashinMe\Service\Response\ResponseFactoryInterface;
@@ -21,9 +22,9 @@ final class ListController
     ) {
     }
 
-    public function __invoke(ProjectFilter $filter): Response
+    public function __invoke(ProjectFilter $filter, ProjectSort $sort): Response
     {
-        $projects = $this->projectService->getProjects($filter);
+        $projects = $this->projectService->getProjects($filter, $sort);
         $count = $this->projectService->getCount($filter);
 
         $collection = new CollectionChunk(

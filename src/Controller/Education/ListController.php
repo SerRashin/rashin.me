@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace RashinMe\Controller\Education;
 
 use RashinMe\Entity\Education;
-use RashinMe\Service\Education\Dto\EducationFilter;
-use RashinMe\Service\Education\Dto\EducationSort;
 use RashinMe\Service\Education\EducationService;
+use RashinMe\Service\Education\Filter\EducationFilter;
+use RashinMe\Service\Education\Filter\EducationSort;
 use RashinMe\Service\Response\Dto\CollectionChunk;
 use RashinMe\Service\Response\ResponseFactoryInterface;
 use RashinMe\View\EducationView;

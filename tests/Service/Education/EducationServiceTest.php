@@ -12,12 +12,11 @@ use PHPUnit\Framework\TestCase;
 use RashinMe\Entity\Education;
 use RashinMe\Service\Education\Dto\DateData;
 use RashinMe\Service\Education\Dto\EducationData;
-use RashinMe\Service\Education\Dto\EducationFilter;
-use RashinMe\Service\Education\Dto\EducationSort;
+use RashinMe\Service\Education\Filter\EducationFilter;
+use RashinMe\Service\Education\Filter\EducationSort;
 use RashinMe\Service\Education\Repository\EducationRepositoryInterface;
 use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Validation\ValidationError;
-use RashinMe\Service\Validation\ValidationServiceInterface;
 
 class EducationServiceTest extends TestCase
 {
@@ -25,11 +24,6 @@ class EducationServiceTest extends TestCase
      * @var EducationRepositoryInterface&MockObject
      */
     private EducationRepositoryInterface $educationRepository;
-
-    /**
-     * @var ValidationServiceInterface&MockObject
-     */
-    private ValidationServiceInterface $validationService;
 
     private EducationService $service;
 
@@ -44,11 +38,9 @@ class EducationServiceTest extends TestCase
         parent::setUp();
 
         $this->educationRepository = $this->createMock(EducationRepositoryInterface::class);
-        $this->validationService = $this->createMock(ValidationServiceInterface::class);
 
         $this->service = new EducationService(
             $this->educationRepository,
-            $this->validationService,
         );
 
         $this->testData = new EducationData(
@@ -63,12 +55,6 @@ class EducationServiceTest extends TestCase
     public function testAddingEducationWithInvalidData(): void
     {
         $expectedError = new ValidationError("some error", []);
-
-        $this->validationService
-            ->expects($this->once())
-            ->method('validate')
-            ->with($this->identicalTo($this->testData))
-            ->willReturn($expectedError);
 
         $result = $this->service->addEducation($this->testData);
 

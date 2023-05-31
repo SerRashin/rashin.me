@@ -6,7 +6,8 @@ namespace RashinMe\Service\Project\Repository;
 
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Project;
-use RashinMe\Service\Project\Dto\ProjectFilter;
+use RashinMe\Service\Project\Filter\ProjectFilter;
+use RashinMe\Service\Project\Filter\ProjectSort;
 
 /**
  * Project repository interface
@@ -44,10 +45,11 @@ interface ProjectRepositoryInterface
      * Get projects
      *
      * @param ProjectFilter $filter
+     * @param ProjectSort $sort
      *
      * @return Collection<int, Project>
      */
-    public function getProjects(ProjectFilter $filter): Collection;
+    public function getProjects(ProjectFilter $filter, ProjectSort $sort): Collection;
 
     /**
      * Get count of projects

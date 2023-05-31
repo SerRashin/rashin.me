@@ -10,7 +10,8 @@ use RashinMe\Repository\SkillRepository;
 use RashinMe\Service\Error;
 use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Skill\Dto\SkillData;
-use RashinMe\Service\Skill\Dto\SkillFilter;
+use RashinMe\Service\Skill\Filter\SkillFilter;
+use RashinMe\Service\Skill\Filter\SkillSort;
 use RashinMe\Service\Storage\StorageService;
 
 class SkillService
@@ -115,12 +116,13 @@ class SkillService
      * Get skills
      *
      * @param SkillFilter $filter
+     * @param SkillSort $sort
      *
      * @return Collection<int, Skill>
      */
-    public function getSkills(SkillFilter $filter): Collection
+    public function getSkills(SkillFilter $filter, SkillSort $sort): Collection
     {
-        return $this->skillRepository->getSkills($filter);
+        return $this->skillRepository->getSkills($filter, $sort);
     }
 
     /**

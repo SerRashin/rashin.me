@@ -10,7 +10,8 @@ use RashinMe\Entity\Project;
 use RashinMe\Service\Error;
 use RashinMe\Service\ErrorInterface;
 use RashinMe\Service\Project\Dto\ProjectData;
-use RashinMe\Service\Project\Dto\ProjectFilter;
+use RashinMe\Service\Project\Filter\ProjectFilter;
+use RashinMe\Service\Project\Filter\ProjectSort;
 use RashinMe\Service\Project\Repository\ProjectRepositoryInterface;
 use RashinMe\Service\Storage\StorageService;
 
@@ -77,12 +78,13 @@ class ProjectService
 
     /**
      * @param ProjectFilter $filter
+     * @param ProjectSort $sort
      *
      * @return Collection<int, Project>
      */
-    public function getProjects(ProjectFilter $filter): Collection
+    public function getProjects(ProjectFilter $filter, $sort): Collection
     {
-        return $this->projectRepository->getProjects($filter);
+        return $this->projectRepository->getProjects($filter, $sort);
     }
 
     /**

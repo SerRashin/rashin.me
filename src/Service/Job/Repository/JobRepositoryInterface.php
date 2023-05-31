@@ -6,8 +6,8 @@ namespace RashinMe\Service\Job\Repository;
 
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Job;
-use RashinMe\Service\Job\Dto\JobFilter;
-use RashinMe\Service\Job\Dto\JobSort;
+use RashinMe\Service\Job\Filter\JobFilter;
+use RashinMe\Service\Job\Filter\JobSort;
 
 interface JobRepositoryInterface
 {

@@ -6,8 +6,8 @@ namespace RashinMe\Service\Education\Repository;
 
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Education;
-use RashinMe\Service\Education\Dto\EducationFilter;
-use RashinMe\Service\Education\Dto\EducationSort;
+use RashinMe\Service\Education\Filter\EducationFilter;
+use RashinMe\Service\Education\Filter\EducationSort;
 
 interface EducationRepositoryInterface
 {

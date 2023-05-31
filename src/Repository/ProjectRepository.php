@@ -10,9 +10,11 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
 use RashinMe\Entity\Project;
-use RashinMe\Service\Project\Dto\ProjectFilter;
+use RashinMe\Service\Project\Filter\ProjectFilter;
+use RashinMe\Service\Project\Filter\ProjectSort;
 use RashinMe\Service\Project\Repository\ProjectRepositoryInterface;
 
 /**
@@ -66,25 +68,30 @@ class ProjectRepository implements ProjectRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getProjects(ProjectFilter $filter): Collection
+    public function getProjects(ProjectFilter $filter, ProjectSort $sort): Collection
     {
         $query = $this->createQueryBuilder()
-            ->addSelect('p')
-            ->from(Project::class, 'p');
+            ->select('project')
+            ->from(Project::class, 'project');
 
-        $query->leftJoin('p.tags', 't')
-            ->addSelect('t');
+        $query->leftJoin('project.tags', 'tags')
+            ->addSelect('tags');
 
-        $query->leftJoin('p.links', 'l')
-            ->addSelect('l');
+        $query->leftJoin('project.links', 'links')
+            ->addSelect('links');
 
-        $ids = $this->getProjectIds($filter);
+        $query->leftJoin('project.image', 'image')
+            ->addSelect('image');
+
+        $ids = $this->getProjectIds($filter, $sort);
+
+        $field = $this->getSortField($sort->field);
 
         /** @var array<int, Project> $projects */
         $projects = $query
-            ->addOrderBy('p.id', 'ASC')
-            ->where('p.id IN(:projectIds)')
-            ->setParameter('projectIds', array_values($ids))
+            ->where('project.id IN(:projectIds)')
+            ->setParameter('projectIds', $ids)
+            ->orderBy($field, $sort->order)
             ->getQuery()
             ->setHydrationMode(AbstractQuery::HYDRATE_ARRAY)
             ->getResult();
@@ -97,11 +104,11 @@ class ProjectRepository implements ProjectRepositoryInterface
      *
      * @return int[]
      */
-    private function getProjectIds(ProjectFilter $filter): array
+    private function getProjectIds(ProjectFilter $filter, ProjectSort $sort): array
     {
         $query = $this->createQueryBuilder()
-            ->addSelect('DISTINCT p.id')
-            ->from(Project::class, 'p');
+            ->addSelect('project.id, project.name')
+            ->from(Project::class, 'project');
 
         if ($filter->limit !== 0) {
             $query->setMaxResults($filter->limit);
@@ -111,9 +118,11 @@ class ProjectRepository implements ProjectRepositoryInterface
             $query->setFirstResult($filter->offset);
         }
 
+        $field = $this->getSortField($sort->field);
+
         /** @var array<int> $ids */
         $ids = $query
-            ->addOrderBy('p.id', 'ASC')
+            ->addOrderBy($field, $sort->order)
             ->getQuery()
             ->getArrayResult();
 
@@ -143,5 +152,18 @@ class ProjectRepository implements ProjectRepositoryInterface
     private function createQueryBuilder(): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder();
+    }
+
+    /**
+     * @param string $fieldName
+     *
+     * @return string
+     */
+    public function getSortField(string $fieldName): string
+    {
+        return match ($fieldName) {
+            'name' => 'project.name',
+            default => 'project.id',
+        };
     }
 }

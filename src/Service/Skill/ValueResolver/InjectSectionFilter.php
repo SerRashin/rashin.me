@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RashinMe\Service\Skill\ValueResolver;
 
-use RashinMe\Service\Skill\Dto\SectionFilter;
+use RashinMe\Service\Skill\Filter\SectionFilter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;

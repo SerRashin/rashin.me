@@ -11,7 +11,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ObjectRepository;
 use Exception;
 use RashinMe\Entity\Property;
-use RashinMe\Service\Property\Dto\PropertyFilter;
+use RashinMe\Service\Property\Filter\PropertyFilter;
 use RashinMe\Service\Property\Repository\PropertyRepositoryInterface;
 
 class PropertyRepository implements PropertyRepositoryInterface

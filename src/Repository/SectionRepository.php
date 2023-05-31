@@ -12,7 +12,8 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ObjectRepository;
 use RashinMe\Entity\Section;
-use RashinMe\Service\Skill\Dto\SectionFilter;
+use RashinMe\Service\Skill\Filter\SectionFilter;
+use RashinMe\Service\Skill\Filter\SectionSort;
 use RashinMe\Service\Skill\Repository\SectionRepositoryInterface;
 
 class SectionRepository implements SectionRepositoryInterface
@@ -51,7 +52,7 @@ class SectionRepository implements SectionRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getSections(SectionFilter $filter): Collection
+    public function getSections(SectionFilter $filter, SectionSort $sort): Collection
     {
         $query = $this->createQueryBuilder()
             ->addSelect('section')
@@ -60,11 +61,12 @@ class SectionRepository implements SectionRepositoryInterface
         $query->leftJoin('section.skills', 'skills')
             ->addSelect('skills');
 
-        $ids = $this->getSectionIds($filter);
+        $ids = $this->getSectionIds($filter, $sort);
+        $field = $this->getSortField($sort->field);
 
         /** @var array<int, Section> $skills */
         $skills = $query
-            ->addOrderBy('section.id', 'ASC')
+            ->addOrderBy($field, $sort->order)
             ->where('section.id IN(:sectionIds)')
             ->setParameter('sectionIds', array_values($ids))
             ->getQuery()
@@ -78,23 +80,19 @@ class SectionRepository implements SectionRepositoryInterface
      *
      * @return int[]
      */
-    private function getSectionIds(SectionFilter $filter): array
+    private function getSectionIds(SectionFilter $filter, SectionSort $sort): array
     {
         $query = $this->createQueryBuilder()
-            ->addSelect('DISTINCT s.id')
-            ->from(Section::class, 's');
+            ->addSelect('section.id, section.name')
+            ->from(Section::class, 'section');
 
-        if ($filter->limit !== 0) {
-            $query->setMaxResults($filter->limit);
-        }
-
-        if ($filter->offset !== 0) {
-            $query->setFirstResult($filter->offset);
-        }
+        $field = $this->getSortField($sort->field);
 
         /** @var array<int> $ids */
         $ids = $query
-            ->addOrderBy('s.id', 'ASC')
+            ->addOrderBy($field, $sort->order)
+            ->setMaxResults($filter->limit)
+            ->setFirstResult($filter->offset)
             ->getQuery()
             ->getArrayResult();
 
@@ -129,5 +127,18 @@ class SectionRepository implements SectionRepositoryInterface
     private function createQueryBuilder(): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder();
+    }
+
+    /**
+     * @param string $fieldName
+     *
+     * @return string
+     */
+    public function getSortField(string $fieldName): string
+    {
+        return match ($fieldName) {
+            'name' => 'section.name',
+            default => 'section.id',
+        };
     }
 }

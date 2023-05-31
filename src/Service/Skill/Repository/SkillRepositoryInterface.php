@@ -6,7 +6,8 @@ namespace RashinMe\Service\Skill\Repository;
 
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Skill;
-use RashinMe\Service\Skill\Dto\SkillFilter;
+use RashinMe\Service\Skill\Filter\SkillFilter;
+use RashinMe\Service\Skill\Filter\SkillSort;
 
 interface SkillRepositoryInterface
 {
@@ -41,10 +42,11 @@ interface SkillRepositoryInterface
      * Get collection of skills
      *
      * @param SkillFilter $filter
+     * @param SkillSort $sort
      *
      * @return Collection<int, Skill>
      */
-    public function getSkills(SkillFilter $filter): Collection;
+    public function getSkills(SkillFilter $filter, SkillSort $sort): Collection;
 
     /**
      * Get count of skills

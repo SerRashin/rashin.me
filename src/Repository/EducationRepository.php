@@ -12,8 +12,8 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ObjectRepository;
 use RashinMe\Entity\Education;
-use RashinMe\Service\Education\Dto\EducationFilter;
-use RashinMe\Service\Education\Dto\EducationSort;
+use RashinMe\Service\Education\Filter\EducationFilter;
+use RashinMe\Service\Education\Filter\EducationSort;
 use RashinMe\Service\Education\Repository\EducationRepositoryInterface;
 
 /**
@@ -119,10 +119,10 @@ class EducationRepository implements EducationRepositoryInterface
     public function getSortField(string $fieldName): string
     {
         return match ($fieldName) {
-            'id' => 'education.id',
-            'name' => 'education.name',
-            'from' => 'education.fromDate',
-            default => 'id',
+            'institution' => 'education.institution',
+            'faculty' => 'education.faculty',
+            'specialization' => 'education.specialization',
+            default => 'education.id',
         };
     }
 }

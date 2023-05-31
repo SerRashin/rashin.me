@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RashinMe\Controller\Property;
 
-use RashinMe\Service\Property\Dto\PropertyFilter;
+use RashinMe\Service\Property\Filter\PropertyFilter;
 use RashinMe\Service\Property\PropertyService;
 use RashinMe\Service\Response\ResponseFactoryInterface;
 use RashinMe\View\PropertiesView;

@@ -7,7 +7,8 @@ namespace RashinMe\Service\Skill;
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Section;
 use RashinMe\Service\Skill\Dto\SectionData;
-use RashinMe\Service\Skill\Dto\SectionFilter;
+use RashinMe\Service\Skill\Filter\SectionFilter;
+use RashinMe\Service\Skill\Filter\SectionSort;
 use RashinMe\Service\Skill\Repository\SectionRepositoryInterface;
 
 class SectionService
@@ -48,12 +49,13 @@ class SectionService
 
     /**
      * @param SectionFilter $filter
+     * @param SectionSort $sort
      *
      * @return Collection<int, Section>
      */
-    public function getSections(SectionFilter $filter): Collection
+    public function getSections(SectionFilter $filter, SectionSort $sort): Collection
     {
-        return $this->sectionRepository->getSections($filter);
+        return $this->sectionRepository->getSections($filter, $sort);
     }
 
     /**

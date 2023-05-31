@@ -6,7 +6,8 @@ namespace RashinMe\Service\Skill\Repository;
 
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Section;
-use RashinMe\Service\Skill\Dto\SectionFilter;
+use RashinMe\Service\Skill\Filter\SectionFilter;
+use RashinMe\Service\Skill\Filter\SectionSort;
 
 interface SectionRepositoryInterface
 {
@@ -41,10 +42,11 @@ interface SectionRepositoryInterface
      * Get collection of section
      *
      * @param SectionFilter $filter
+     * @param SectionSort $sort
      *
      * @return Collection<int, Section>
      */
-    public function getSections(SectionFilter $filter): Collection;
+    public function getSections(SectionFilter $filter, SectionSort $sort): Collection;
 
     /**
      * Get count of sections

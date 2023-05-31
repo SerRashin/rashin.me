@@ -6,7 +6,7 @@ namespace RashinMe\Service\Property\Repository;
 
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Property;
-use RashinMe\Service\Property\Dto\PropertyFilter;
+use RashinMe\Service\Property\Filter\PropertyFilter;
 
 interface PropertyRepositoryInterface
 {

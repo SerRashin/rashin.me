@@ -12,8 +12,8 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ObjectRepository;
 use RashinMe\Entity\Job;
-use RashinMe\Service\Job\Dto\JobFilter;
-use RashinMe\Service\Job\Dto\JobSort;
+use RashinMe\Service\Job\Filter\JobFilter;
+use RashinMe\Service\Job\Filter\JobSort;
 use RashinMe\Service\Job\Repository\JobRepositoryInterface;
 
 /**
@@ -61,7 +61,7 @@ class JobRepository implements JobRepositoryInterface
             ->addSelect('job')
             ->from(Job::class, 'job');
 
-        if ($filter->limit !== null) {
+        if ($filter->limit !== 0) {
             $query->setMaxResults($filter->limit);
         }
 
@@ -71,10 +71,9 @@ class JobRepository implements JobRepositoryInterface
 
         $field = $this->getSortField($sort->field);
 
-        $query->addOrderBy($field, $sort->order);
-
         /** @var array<int, Job> $jobs */
         $jobs = $query
+            ->addOrderBy($field, $sort->order)
             ->getQuery()
             ->getResult();
 
@@ -119,12 +118,11 @@ class JobRepository implements JobRepositoryInterface
     public function getSortField(string $fieldName): string
     {
         return match ($fieldName) {
-            'id' => 'job.id',
             'name' => 'job.name',
             'type' => 'job.type',
             'from' => 'job.fromDate',
             'company.name' => 'job.company.name',
-            default => 'id',
+            default => 'job.id',
         };
     }
 }

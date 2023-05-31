@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace RashinMe\Service\User\Repository;
 
 use Doctrine\Common\Collections\Collection;
-use RashinMe\Service\User\Dto\UserFilter;
+use RashinMe\Service\User\Filter\UserFilter;
+use RashinMe\Service\User\Filter\UserSort;
 use RashinMe\Service\User\Model\UserInterface;
 
 /**
@@ -53,10 +54,11 @@ interface UserRepositoryInterface
      * Get collection of users
      *
      * @param UserFilter $filter
+     * @param UserSort $sort
      *
      * @return Collection<int, UserInterface>
      */
-    public function getUsers(UserFilter $filter): Collection;
+    public function getUsers(UserFilter $filter, UserSort $sort): Collection;
 
     /**
      * Get count of users

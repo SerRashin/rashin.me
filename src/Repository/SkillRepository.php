@@ -9,7 +9,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use RashinMe\Entity\Skill;
-use RashinMe\Service\Skill\Dto\SkillFilter;
+use RashinMe\Service\Skill\Filter\SkillFilter;
+use RashinMe\Service\Skill\Filter\SkillSort;
 use RashinMe\Service\Skill\Repository\SkillRepositoryInterface;
 
 class SkillRepository implements SkillRepositoryInterface
@@ -59,13 +60,16 @@ class SkillRepository implements SkillRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getSkills(SkillFilter $filter): Collection
+    public function getSkills(SkillFilter $filter, SkillSort $sort): Collection
     {
         $query = $this->createQueryBuilder()
-            ->addSelect('s')
-            ->from(Skill::class, 's');
+            ->addSelect('skill')
+            ->from(Skill::class, 'skill');
 
-        if ($filter->limit !== null) {
+        $query->leftJoin('skill.image', 'image')
+            ->addSelect('image');
+
+        if ($filter->limit !== 0) {
             $query->setMaxResults($filter->limit);
         }
 
@@ -73,9 +77,11 @@ class SkillRepository implements SkillRepositoryInterface
             $query->setFirstResult($filter->offset);
         }
 
+        $field = $this->getSortField($sort->field);
+
         /** @var array<int, Skill> $skills */
         $skills = $query
-            ->addOrderBy('s.id', 'ASC')
+            ->addOrderBy($field, $sort->order)
             ->getQuery()
             ->getResult();
 
@@ -99,5 +105,18 @@ class SkillRepository implements SkillRepositoryInterface
     private function createQueryBuilder(): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder();
+    }
+
+    /**
+     * @param string $fieldName
+     *
+     * @return string
+     */
+    public function getSortField(string $fieldName): string
+    {
+        return match ($fieldName) {
+            'name' => 'skill.name',
+            default => 'skill.id',
+        };
     }
 }

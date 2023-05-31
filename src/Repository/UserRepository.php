@@ -6,13 +6,14 @@ namespace RashinMe\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ObjectRepository;
 use RashinMe\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
-use RashinMe\Service\User\Dto\UserFilter;
+use RashinMe\Service\User\Filter\UserFilter;
+use RashinMe\Service\User\Filter\UserSort;
 use RashinMe\Service\User\Model\UserInterface;
 use RashinMe\Service\User\Repository\UserRepositoryInterface;
 
@@ -65,13 +66,13 @@ final class UserRepository implements UserRepositoryInterface
      *
      * @return Collection<int, UserInterface>
      */
-    public function getUsers(UserFilter $filter): Collection
+    public function getUsers(UserFilter $filter, UserSort $sort): Collection
     {
         $query = $this->createQueryBuilder()
-            ->addSelect('u')
-            ->from(User::class, 'u');
+            ->addSelect('user')
+            ->from(User::class, 'user');
 
-        if ($filter->limit !== null) {
+        if ($filter->limit !== 0) {
             $query->setMaxResults($filter->limit);
         }
 
@@ -79,9 +80,11 @@ final class UserRepository implements UserRepositoryInterface
             $query->setFirstResult($filter->offset);
         }
 
+        $field = $this->getSortField($sort->field);
+
         /** @var array<int, UserInterface> $users */
         $users = $query
-            ->addOrderBy('u.id', 'ASC')
+            ->addOrderBy($field, $sort->order)
             ->getQuery()
             ->getResult();
 
@@ -116,5 +119,20 @@ final class UserRepository implements UserRepositoryInterface
     private function createQueryBuilder(): QueryBuilder
     {
         return $this->entityManager->createQueryBuilder();
+    }
+
+    /**
+     * @param string $fieldName
+     *
+     * @return string
+     */
+    public function getSortField(string $fieldName): string
+    {
+        return match ($fieldName) {
+            'email' => 'user.email',
+            'firstName' => 'user.firstName',
+            'lastName' => 'user.lastName',
+            default => 'user.id',
+        };
     }
 }

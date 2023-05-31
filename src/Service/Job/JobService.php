@@ -10,8 +10,8 @@ use RashinMe\Entity\Company;
 use RashinMe\Entity\Job;
 use RashinMe\Service\Job\Dto\DateData;
 use RashinMe\Service\Job\Dto\JobData;
-use RashinMe\Service\Job\Dto\JobFilter;
-use RashinMe\Service\Job\Dto\JobSort;
+use RashinMe\Service\Job\Filter\JobFilter;
+use RashinMe\Service\Job\Filter\JobSort;
 use RashinMe\Service\Job\Repository\JobRepositoryInterface;
 
 class JobService

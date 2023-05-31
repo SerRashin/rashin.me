@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RashinMe\Service\Education\ValueResolver;
 
-use RashinMe\Service\Education\Dto\EducationFilter;
+use RashinMe\Service\Education\Filter\EducationFilter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;

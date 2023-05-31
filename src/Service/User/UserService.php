@@ -6,7 +6,8 @@ namespace RashinMe\Service\User;
 
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Service\User\Dto\UserData;
-use RashinMe\Service\User\Dto\UserFilter;
+use RashinMe\Service\User\Filter\UserFilter;
+use RashinMe\Service\User\Filter\UserSort;
 use RashinMe\Service\User\Model\UserInterface;
 use RashinMe\Service\User\Repository\UserRepositoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -49,9 +50,9 @@ class UserService implements UserServiceInterface
     /**
      * @inheritDoc
      */
-    public function getUsers(UserFilter $filter): Collection
+    public function getUsers(UserFilter $filter, UserSort $sort): Collection
     {
-        return $this->userRepository->getUsers($filter);
+        return $this->userRepository->getUsers($filter, $sort);
     }
 
     public function getCount(UserFilter $filter): int

@@ -7,7 +7,8 @@ namespace RashinMe\Controller\User;
 use RashinMe\Security\Permissions;
 use RashinMe\Service\Response\Dto\CollectionChunk;
 use RashinMe\Service\Response\ResponseFactoryInterface;
-use RashinMe\Service\User\Dto\UserFilter;
+use RashinMe\Service\User\Filter\UserFilter;
+use RashinMe\Service\User\Filter\UserSort;
 use RashinMe\Service\User\Model\UserInterface;
 use RashinMe\Service\User\UserServiceInterface;
 use RashinMe\View\PaginatedView;
@@ -24,13 +25,13 @@ class ListController
     ) {
     }
 
-    public function __invoke(UserFilter $filter): Response
+    public function __invoke(UserFilter $filter, UserSort $sort): Response
     {
         if (!$this->security->isGranted(Permissions::ADMIN)) {
             return $this->responseFactory->forbidden("You're not allowed to delete users");
         }
 
-        $projects = $this->userService->getUsers($filter);
+        $projects = $this->userService->getUsers($filter, $sort);
         $count = $this->userService->getCount($filter);
 
         $collection = new CollectionChunk(

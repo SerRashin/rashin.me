@@ -39,15 +39,6 @@ class UploadController
             return $this->responseFactory->badRequest("File not selected");
         }
 
-        $validationError = $this->validationService->validate($educationData);
-
-        if ($validationError !== null) {
-            return $this->responseFactory->createResponse(
-                ErrorView::create($validationError),
-                400
-            );
-        }
-
         $result = $this->uploadService->execute($uploadedFile);
 
         if ($result instanceof ErrorInterface) {

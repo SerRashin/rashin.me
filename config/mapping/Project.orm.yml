@@ -39,7 +39,6 @@ RashinMe\Entity\Project:
     links:
       targetEntity: RashinMe\Entity\Link
       mappedBy: project
-      orderBy: { "id": "ASC" }
       cascade:
         - persist
         - merge

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace RashinMe\Controller\Job;
 
 use RashinMe\Entity\Job;
-use RashinMe\Service\Job\Dto\JobFilter;
-use RashinMe\Service\Job\Dto\JobSort;
+use RashinMe\Service\Job\Filter\JobFilter;
+use RashinMe\Service\Job\Filter\JobSort;
 use RashinMe\Service\Job\JobService;
 use RashinMe\Service\Response\Dto\CollectionChunk;
 use RashinMe\Service\Response\ResponseFactoryInterface;

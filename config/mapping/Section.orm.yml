@@ -16,7 +16,6 @@ RashinMe\Entity\Section:
     skills:
       targetEntity: RashinMe\Entity\Skill
       mappedBy: section
-      orderBy: { "id": "ASC" }
       cascade:
         - persist
         - remove

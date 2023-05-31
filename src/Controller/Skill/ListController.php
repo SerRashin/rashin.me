@@ -7,7 +7,8 @@ namespace RashinMe\Controller\Skill;
 use RashinMe\Entity\Skill;
 use RashinMe\Service\Response\Dto\CollectionChunk;
 use RashinMe\Service\Response\ResponseFactoryInterface;
-use RashinMe\Service\Skill\Dto\SkillFilter;
+use RashinMe\Service\Skill\Filter\SkillFilter;
+use RashinMe\Service\Skill\Filter\SkillSort;
 use RashinMe\Service\Skill\SkillService;
 use RashinMe\View\PaginatedView;
 use RashinMe\View\SkillView;
@@ -21,9 +22,9 @@ final class ListController
     ) {
     }
 
-    public function __invoke(SkillFilter $filter): Response
+    public function __invoke(SkillFilter $filter, SkillSort $sort): Response
     {
-        $skills = $this->skillService->getSkills($filter);
+        $skills = $this->skillService->getSkills($filter, $sort);
         $count = $this->skillService->getCount($filter);
 
         $collection = new CollectionChunk(

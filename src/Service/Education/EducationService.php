@@ -9,8 +9,8 @@ use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Education;
 use RashinMe\Service\Education\Dto\DateData;
 use RashinMe\Service\Education\Dto\EducationData;
-use RashinMe\Service\Education\Dto\EducationFilter;
-use RashinMe\Service\Education\Dto\EducationSort;
+use RashinMe\Service\Education\Filter\EducationFilter;
+use RashinMe\Service\Education\Filter\EducationSort;
 use RashinMe\Service\Education\Repository\EducationRepositoryInterface;
 
 class EducationService

@@ -7,7 +7,7 @@ namespace RashinMe\Service\Property;
 use Doctrine\Common\Collections\Collection;
 use RashinMe\Entity\Property;
 use RashinMe\Service\Property\Dto\PropertiesData;
-use RashinMe\Service\Property\Dto\PropertyFilter;
+use RashinMe\Service\Property\Filter\PropertyFilter;
 use RashinMe\Service\Property\Repository\PropertyRepositoryInterface;
 
 class PropertyService
