@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\User\ValueResolver;
+namespace RashinMe\ValueResolver;
 
-use RashinMe\Service\User\Filter\UserFilter;
+use RashinMe\Service\Skill\Filter\SectionFilter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class InjectUserFilter implements ValueResolverInterface
+class InjectSectionFilter implements ValueResolverInterface
 {
     /**
      * @inheritDoc
      *
-     * @return iterable<UserFilter>
+     * @return iterable<SectionFilter>
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $argumentType = $argument->getType();
 
-        if ($argumentType !== UserFilter::class) {
+        if ($argumentType !== SectionFilter::class) {
             return [];
         }
 
@@ -28,9 +28,9 @@ class InjectUserFilter implements ValueResolverInterface
             return [];
         }
 
-        $limit = $request->query->getInt('limit', UserFilter::USERS_PER_PAGE);
+        $limit = $request->query->getInt('limit', SectionFilter::SECTIONS_PER_PAGE);
         $offset = $request->query->getInt('offset', 0);
 
-        yield new UserFilter($limit, $offset);
+        yield new SectionFilter($limit, $offset);
     }
 }

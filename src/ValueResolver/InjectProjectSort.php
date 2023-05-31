@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Project\ValueResolver;
+namespace RashinMe\ValueResolver;
 
 use RashinMe\Service\Project\Filter\ProjectSort;
 use Symfony\Component\HttpFoundation\Request;

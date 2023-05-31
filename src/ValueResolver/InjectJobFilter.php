@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Education\ValueResolver;
+namespace RashinMe\ValueResolver;
 
-use RashinMe\Service\Education\Filter\EducationFilter;
+use RashinMe\Service\Job\Filter\JobFilter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class InjectEducationFilter implements ValueResolverInterface
+class InjectJobFilter implements ValueResolverInterface
 {
     /**
      * @inheritDoc
      *
-     * @return iterable<EducationFilter>
+     * @return iterable<JobFilter>
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $argumentType = $argument->getType();
 
-        if ($argumentType !== EducationFilter::class) {
+        if ($argumentType !== JobFilter::class) {
             return [];
         }
 
@@ -28,9 +28,9 @@ class InjectEducationFilter implements ValueResolverInterface
             return [];
         }
 
-        $limit = $request->query->getInt('limit', EducationFilter::EDUCATIONS_PER_PAGE);
+        $limit = $request->query->getInt('limit', JobFilter::JOBS_PER_PAGE);
         $offset = $request->query->getInt('offset', 0);
 
-        yield new EducationFilter($limit, $offset);
+        yield new JobFilter($limit, $offset);
     }
 }

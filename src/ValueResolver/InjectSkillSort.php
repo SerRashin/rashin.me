@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Job\ValueResolver;
+namespace RashinMe\ValueResolver;
 
-use RashinMe\Service\Job\Filter\JobSort;
+use RashinMe\Service\Skill\Filter\SkillSort;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class InjectJobSort implements ValueResolverInterface
+class InjectSkillSort implements ValueResolverInterface
 {
     /**
      * @inheritDoc
      *
-     * @return iterable<JobSort>
+     * @return iterable<SkillSort>
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $argumentType = $argument->getType();
 
-        if ($argumentType !== JobSort::class) {
+        if ($argumentType !== SkillSort::class) {
             return [];
         }
 
@@ -30,8 +30,8 @@ class InjectJobSort implements ValueResolverInterface
 
         $sortJson = $request->query->get('sort') ?? '';
 
-        $field = JobSort::DEFAULT_SORT;
-        $order = JobSort::DEFAULT_ORDER;
+        $field = SkillSort::DEFAULT_SORT;
+        $order = SkillSort::DEFAULT_ORDER;
 
         if (!empty($sortJson)) {
             /**
@@ -39,10 +39,10 @@ class InjectJobSort implements ValueResolverInterface
              */
             $sort = json_decode((string)$sortJson, false);
 
-            $field = $sort?->field ?? JobSort::DEFAULT_SORT;
+            $field = $sort?->field ?? SkillSort::DEFAULT_SORT;
             $order = $sort?->order ?? $order;
         }
 
-        yield new JobSort($field, $order);
+        yield new SkillSort($field, $order);
     }
 }

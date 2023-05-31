@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Skill\ValueResolver;
+namespace RashinMe\ValueResolver;
 
 use RashinMe\Service\Skill\Filter\SkillFilter;
 use Symfony\Component\HttpFoundation\Request;

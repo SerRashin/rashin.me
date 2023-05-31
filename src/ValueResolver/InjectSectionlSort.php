@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\User\ValueResolver;
+namespace RashinMe\ValueResolver;
 
-use RashinMe\Service\User\Filter\UserSort;
+use RashinMe\Service\Skill\Filter\SectionSort;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class InjectUserSort implements ValueResolverInterface
+class InjectSectionlSort implements ValueResolverInterface
 {
     /**
      * @inheritDoc
      *
-     * @return iterable<UserSort>
+     * @return iterable<SectionSort>
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $argumentType = $argument->getType();
 
-        if ($argumentType !== UserSort::class) {
+        if ($argumentType !== SectionSort::class) {
             return [];
         }
 
@@ -30,8 +30,8 @@ class InjectUserSort implements ValueResolverInterface
 
         $sortJson = $request->query->get('sort') ?? '';
 
-        $field = UserSort::DEFAULT_SORT;
-        $order = UserSort::DEFAULT_ORDER;
+        $field = SectionSort::DEFAULT_SORT;
+        $order = SectionSort::DEFAULT_ORDER;
 
         if (!empty($sortJson)) {
             /**
@@ -39,10 +39,10 @@ class InjectUserSort implements ValueResolverInterface
              */
             $sort = json_decode((string)$sortJson, false);
 
-            $field = $sort?->field ?? UserSort::DEFAULT_SORT;
+            $field = $sort?->field ?? SectionSort::DEFAULT_SORT;
             $order = $sort?->order ?? $order;
         }
 
-        yield new UserSort($field, $order);
+        yield new SectionSort($field, $order);
     }
 }

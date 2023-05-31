@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Job\ValueResolver;
+namespace RashinMe\ValueResolver;
 
-use RashinMe\Service\Job\Filter\JobFilter;
+use RashinMe\Service\User\Filter\UserFilter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class InjectJobFilter implements ValueResolverInterface
+class InjectUserFilter implements ValueResolverInterface
 {
     /**
      * @inheritDoc
      *
-     * @return iterable<JobFilter>
+     * @return iterable<UserFilter>
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $argumentType = $argument->getType();
 
-        if ($argumentType !== JobFilter::class) {
+        if ($argumentType !== UserFilter::class) {
             return [];
         }
 
@@ -28,9 +28,9 @@ class InjectJobFilter implements ValueResolverInterface
             return [];
         }
 
-        $limit = $request->query->getInt('limit', JobFilter::JOBS_PER_PAGE);
+        $limit = $request->query->getInt('limit', UserFilter::USERS_PER_PAGE);
         $offset = $request->query->getInt('offset', 0);
 
-        yield new JobFilter($limit, $offset);
+        yield new UserFilter($limit, $offset);
     }
 }

@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Skill\ValueResolver;
+namespace RashinMe\ValueResolver;
 
-use RashinMe\Service\Skill\Filter\SectionSort;
+use RashinMe\Service\Education\Filter\EducationSort;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class InjectSectionlSort implements ValueResolverInterface
+class InjectEducationSort implements ValueResolverInterface
 {
     /**
      * @inheritDoc
      *
-     * @return iterable<SectionSort>
+     * @return iterable<EducationSort>
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $argumentType = $argument->getType();
 
-        if ($argumentType !== SectionSort::class) {
+        if ($argumentType !== EducationSort::class) {
             return [];
         }
 
@@ -30,8 +30,8 @@ class InjectSectionlSort implements ValueResolverInterface
 
         $sortJson = $request->query->get('sort') ?? '';
 
-        $field = SectionSort::DEFAULT_SORT;
-        $order = SectionSort::DEFAULT_ORDER;
+        $field = EducationSort::DEFAULT_SORT;
+        $order = EducationSort::DEFAULT_ORDER;
 
         if (!empty($sortJson)) {
             /**
@@ -39,10 +39,10 @@ class InjectSectionlSort implements ValueResolverInterface
              */
             $sort = json_decode((string)$sortJson, false);
 
-            $field = $sort?->field ?? SectionSort::DEFAULT_SORT;
+            $field = $sort?->field ?? EducationSort::DEFAULT_SORT;
             $order = $sort?->order ?? $order;
         }
 
-        yield new SectionSort($field, $order);
+        yield new EducationSort($field, $order);
     }
 }
