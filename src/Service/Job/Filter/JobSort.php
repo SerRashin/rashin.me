@@ -2,13 +2,19 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Project\Dto;
+namespace RashinMe\Service\Job\Filter;
 
-class ProjectSort
+class JobSort
 {
+    public const DEFAULT_SORT = 'id';
+    public const DEFAULT_ORDER = 'ASC';
+
     private const AVAILABLE_SORT = [
         'id',
         'name',
+        'type',
+        'company.name',
+        'from',
     ];
 
     private const AVAILABLE_ORDER = [

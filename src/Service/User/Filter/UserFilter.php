@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Education\Dto;
+namespace RashinMe\Service\User\Filter;
 
-class EducationFilter
+class UserFilter
 {
-    public const EDUCATIONS_PER_PAGE = 10;
+    public const USERS_PER_PAGE = 10;
 
     public int $offset = 0;
-    public int $limit;
+    public int $limit = 0;
 
     public function __construct(
         int $limit,

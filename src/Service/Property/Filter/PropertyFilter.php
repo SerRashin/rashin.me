@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Property\Dto;
+namespace RashinMe\Service\Property\Filter;
 
 class PropertyFilter
 {

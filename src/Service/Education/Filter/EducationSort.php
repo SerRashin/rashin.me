@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Education\Dto;
+namespace RashinMe\Service\Education\Filter;
 
 class EducationSort
 {
@@ -21,8 +21,8 @@ class EducationSort
         'DESC',
     ];
 
-    public string $field = 'id';
-    public string $order = 'ASC';
+    public string $field = self::DEFAULT_SORT;
+    public string $order = self::DEFAULT_ORDER;
 
     public function __construct(
         string $field,

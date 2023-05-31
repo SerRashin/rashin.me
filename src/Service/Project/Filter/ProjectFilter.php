@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Job\Dto;
+namespace RashinMe\Service\Project\Filter;
 
-class JobFilter
+class ProjectFilter
 {
-    public const JOBS_PER_PAGE = 10;
+    public const PROJECTS_PER_PAGE = 10;
 
     public int $offset = 0;
-    public int $limit;
+    public int $limit = 0;
 
     public function __construct(
-        int $limit,
+        int $limit = 0,
         int $offset = 0,
     ) {
         $this->limit = $limit;

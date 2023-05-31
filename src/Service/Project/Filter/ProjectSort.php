@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace RashinMe\Service\Job\Dto;
+namespace RashinMe\Service\Project\Filter;
 
-class JobSort
+class ProjectSort
 {
     public const DEFAULT_SORT = 'id';
     public const DEFAULT_ORDER = 'ASC';
@@ -12,9 +12,6 @@ class JobSort
     private const AVAILABLE_SORT = [
         'id',
         'name',
-        'type',
-        'company.name',
-        'from',
     ];
 
     private const AVAILABLE_ORDER = [
@@ -22,8 +19,8 @@ class JobSort
         'DESC',
     ];
 
-    public string $field = 'id';
-    public string $order = 'ASC';
+    public string $field = self::DEFAULT_SORT;
+    public string $order = self::DEFAULT_ORDER;
 
     public function __construct(
         string $field,
